@@ -1,0 +1,348 @@
+.hero-section {
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 690px;
+  text-align: center;
+}
+
+.hero-title {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.2;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.subtitle-section {
+  text-align: center;
+  margin: 0 auto 3rem auto;
+  padding: 1rem;
+  max-width: 580px;
+}
+
+.subtitle {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-gray);
+  margin: 0;
+}
+
+.search-section {
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.search-container {
+  background-color: var(--color-gray-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 auto;
+  max-width: 710px;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: 2px solid var(--color-gray-border);
+  height: 55px;
+}
+
+.search-input-wrapper {
+  flex: 1;
+}
+
+.search-input {
+  all: unset;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 30px;
+  width: 100%;
+  background-color: var(--color-transparent);
+  color: var(--color-black);
+}
+
+.search-input::placeholder {
+  color: var(--color-gray);
+}
+
+.filter-dropdown {
+  display: flex;
+  align-items: center;
+}
+
+.filter-button {
+  all: unset;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--color-black);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.filter-button:hover {
+  color: var(--color-text-dark);
+}
+
+.dropdown-icon {
+  font-size: 12px;
+}
+
+.search-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.search-button {
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+  background-color: #ccc4c4;
+  transition: background-color 0.3s ease;
+  padding: 0.15rem;
+}
+
+.search-button:hover {
+  background-color: #7a7474;
+}
+
+.search-icon {
+  height: 24px;
+  width: 24px;
+}
+
+.trending-section {
+  max-width: 850px;
+  margin: 2rem auto;
+  padding: 2rem 1rem;
+}
+
+.trending-label {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 30px;
+  color: var(--color-text-lighter);
+  margin-bottom: 1rem;
+}
+
+.trending-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.trending-tag {
+  padding: 0.25rem 0.75rem;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-gray-border);
+  border-radius: 50px;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 30px;
+  color: var(--color-black);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.trending-tag:hover {
+  background-color: var(--color-gray-light);
+  color: var(--color-black);
+}
+
+.gallery-section {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 20px var(--color-shadow);
+  border: 2px solid var(--color-gray-border);
+  background: var(--color-white);
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px var(--color-shadow);
+}
+
+.gallery-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-image {
+  transform: scale(1.05);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  padding: 1.5rem 1rem 1rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  transform: translateY(0);
+}
+
+.gallery-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-white);
+}
+
+.gallery-stats {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 14px;
+  color: var(--color-white);
+}
+
+.stat-item-numbers {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat-icon {
+  font-size: 16px;
+}
+
+.stat-value {
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-section {
+    padding: 2rem 1rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .search-container {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .search-input-wrapper,
+  .filter-dropdown,
+  .search-button-wrapper {
+    width: 100%;
+  }
+
+  .search-button {
+    width: 100%;
+    border-radius: 25px;
+    height: 45px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .trending-section {
+    padding: 1rem;
+  }
+
+  .trending-tags {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .search-container {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .main-navigation,
+  .hero-section,
+  .subtitle-section,
+  .search-section,
+  .trending-section,
+  .gallery-section,
+  .footer-content {
+    max-width: 1400px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

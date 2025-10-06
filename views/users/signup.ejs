@@ -1,0 +1,79 @@
+<%- layout('layouts/boilerplate.ejs') %>
+
+<main class="auth-page">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <img
+          src="/images/Dribbble-logo.png"
+          alt="Dribbble"
+          class="logo-image"
+        />
+      </div>
+
+      <div class="auth-header">
+        <h1 class="auth-title">Welcome to Dribbble</h1>
+        <p class="auth-description">
+          Create your account and discover world-class design talent.
+        </p>
+      </div>
+
+      <form class="auth-form" action="/user/signup" method="POST">
+        <div class="form-group">
+          <input
+            type="text"
+            name="user[username]"
+            placeholder="Enter username"
+            class="form-input"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="email"
+            name="user[email]"
+            placeholder="Enter email address"
+            class="form-input"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            name="user[password]"
+            placeholder="Enter password"
+            class="form-input"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-success btn-full">
+          <svg
+            class="btn-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="8.5" cy="7" r="4" />
+            <line x1="20" y1="8" x2="20" y2="14" />
+            <line x1="23" y1="11" x2="17" y2="11" />
+          </svg>
+          Create Account
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p class="auth-terms">
+          By continuing, you agree to our
+          <a href="#" class="auth-link">Terms and Privacy Policy</a>.
+        </p>
+        <p class="auth-signin">
+          Already have an account?
+          <a href="/user/login" class="auth-link auth-link-primary">Log in</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>

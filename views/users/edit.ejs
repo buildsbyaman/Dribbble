@@ -1,0 +1,129 @@
+<%- layout('layouts/boilerplate.ejs') %>
+
+<main class="auth-page">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <img
+          src="/images/Dribbble-logo.png"
+          alt="Dribbble"
+          class="logo-image"
+        />
+      </div>
+
+      <div class="auth-header">
+        <h1 class="auth-title">Edit Your Profile</h1>
+        <p class="auth-description">
+          Update your account information and personalize your profile.
+        </p>
+      </div>
+      <form class="auth-form" action="/user?_method=PUT" method="POST">
+        <div class="form-group">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            name="user[username]"
+            id="username"
+            value="<%= currUser.username %>"
+            placeholder="Enter username"
+            class="form-input"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            name="user[email]"
+            id="email"
+            value="<%= currUser.email %>"
+            placeholder="Enter email address"
+            class="form-input"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="age" class="form-label"
+            >Age <span style="color: #6b7280">(Optional)</span></label
+          >
+          <input
+            type="number"
+            name="user[age]"
+            id="age"
+            value="<%= currUser.age || '' %>"
+            placeholder="Enter your age"
+            class="form-input"
+            min="14"
+            max="120"
+          />
+        </div>
+
+        <div class="btn-group-vertical">
+          <button type="submit" class="btn btn-primary btn-save btn-full">
+            <svg
+              class="btn-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            Update Profile
+          </button>
+          <a href="/user" class="btn btn-cancel btn-full">
+            <svg
+              class="btn-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M18 6L6 18" />
+              <path d="M6 6l12 12" />
+            </svg>
+            Cancel
+          </a>
+        </div>
+      </form>
+
+      <div class="auth-footer">
+        <p
+          class="auth-terms"
+          style="
+            border-top: 1px solid #e7e7e9;
+            padding-top: 1rem;
+            margin-top: 1rem;
+          "
+        >
+          <strong style="color: #dc2626">Danger Zone:</strong>
+          Once you delete your account, there is no going back. Please be
+          certain.
+        </p>
+        <form
+          action="/user?_method=DELETE"
+          method="POST"
+          onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone?')"
+          style="margin-top: 1rem"
+        >
+          <button type="submit" class="btn btn-danger btn-delete btn-full">
+            <svg
+              class="btn-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="9,9 15,15" />
+              <polyline points="15,9 9,15" />
+            </svg>
+            Delete Account
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

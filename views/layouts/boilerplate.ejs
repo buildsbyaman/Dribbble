@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dribbble</title>
+    <% if (cssFiles && cssFiles.length > 0) { %> <% cssFiles.forEach(cssFile =>
+    { %>
+    <link rel="stylesheet" href="<%= cssFile %>" />
+    <% }) }; %>
+    <link
+      rel="shortcut icon"
+      href="/images/Dribbble-logo.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <%- include('../includes/header.ejs') %> <%-
+    include('../includes/flash.ejs') %> <%- body %> <%-
+    include('../includes/footer.ejs') %>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const fileInput = document.getElementById("image");
+        const uploadSection = document.querySelector(".file-upload-section");
+        const previewContainer = document.querySelector(
+          ".image-preview-container"
+        );
+
+        if (fileInput && uploadSection) {
+          fileInput.addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            if (file) {
+              if (previewContainer) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                  previewContainer.innerHTML = `
+                    <div class="image-preview">
+                      <img src="${e.target.result}" alt="Preview" class="preview-image">
+                      <button type="button" class="remove-image" onclick="removeImage()">×</button>
+                    </div>
+                  `;
+                  previewContainer.classList.add("active");
+                };
+                reader.readAsDataURL(file);
+              }
+            }
+          });
+
+          uploadSection.addEventListener("dragover", function (e) {
+            e.preventDefault();
+            uploadSection.classList.add("dragover");
+          });
+
+          uploadSection.addEventListener("dragleave", function (e) {
+            e.preventDefault();
+            uploadSection.classList.remove("dragover");
+          });
+
+          uploadSection.addEventListener("drop", function (e) {
+            e.preventDefault();
+            uploadSection.classList.remove("dragover");
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+              fileInput.files = files;
+              fileInput.dispatchEvent(new Event("change"));
+            }
+          });
+        }
+
+        window.removeImage = function () {
+          if (fileInput) fileInput.value = "";
+          if (previewContainer) {
+            previewContainer.classList.remove("active");
+            previewContainer.innerHTML = "";
+          }
+        };
+      });
+    </script>
+  </body>
+</html>

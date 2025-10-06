@@ -1,0 +1,79 @@
+<%- layout("layouts/boilerplate.ejs") %>
+
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">Discover the world's top designers</h1>
+  </div>
+</section>
+
+<section class="subtitle-section">
+  <h2 class="subtitle">
+    Explore work from the most talented and accomplished designers ready to take
+    on your next project
+  </h2>
+</section>
+
+<section class="search-section">
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <input
+        class="search-input"
+        type="text"
+        placeholder="What are you looking for?"
+      />
+    </div>
+    <div class="search-button-wrapper">
+      <button class="search-button">
+        <img class="search-icon" src="/images/search.png" alt="" />
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="trending-section">
+  <p class="trending-label">Trending searches</p>
+  <div class="trending-tags">
+    <span class="trending-tag">UI/UX</span>
+    <span class="trending-tag">Minimalist Design</span>
+    <span class="trending-tag">Dark Mode</span>
+    <span class="trending-tag">3D Illustration</span>
+    <span class="trending-tag">Microinteractions</span>
+  </div>
+</section>
+
+<section class="gallery-section">
+  <div class="gallery-grid">
+    <% postData.forEach(function(post, index) { %>
+
+    <div class="gallery-item" href="/post/<%= post.id %>">
+      <div class="gallery-image-wrapper">
+        <a href="/post/<%= post.id %>">
+          <img
+            class="gallery-image"
+            src="<%= post.image %>"
+            alt="<%= post.name %>"
+        /></a>
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <div class="gallery-stats">
+              <div class="stat-item">
+                <span class="stat-value"><%= post.title %></span>
+              </div>
+              <div class="stat-item-numbers">
+                <div class="stat-item">
+                  <span class="stat-icon">♥</span>
+                  <span class="stat-value"><%= post.hearts %></span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-icon">👁</span>
+                  <span class="stat-value"><%= post.views %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</section>

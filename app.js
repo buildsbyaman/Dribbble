@@ -1,0 +1,100 @@
+const express = require("express");
+const dotenv = require("dotenv");
+dotenv.config({ quiet: true });
+const postRouter = require("./routes/post.js");
+const userRouter = require("./routes/user.js");
+const ejsEngine = require("ejs-mate");
+const path = require("path");
+const app = express();
+const mongoose = require("mongoose");
+const User = require("./models/user.js");
+const cookieParser = require("cookie-parser");
+const expressSession = require("express-session");
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const flash = require("connect-flash");
+const methodOverride = require("method-override");
+const CustomError = require("./utilities/CustomError.js");
+
+const sessionOptions = {
+  secret:
+    process.env.SESSION_SECRET || "fallback-secret-key-change-in-production",
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false },
+};
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.engine("ejs", ejsEngine);
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use(cookieParser());
+app.use(expressSession(sessionOptions));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+async function connectDB() {
+  try {
+    await mongoose.connect(process.env.MONGOATLASURL);
+  } catch (error) {
+    console.error("Database connection failed:", error);
+    process.exit(1);
+  }
+}
+
+connectDB()
+  .then(() => {
+    console.log("Successfully connected to DB.");
+  })
+  .catch((error) => {
+    console.log("Error while connecting to DB!", error.message);
+  });
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.failure = req.flash("failure");
+  res.locals.currUser = req.user || null;
+  next();
+});
+
+app.get("/", (req, res) => {
+  res.redirect("/post");
+});
+
+app.use("/user", userRouter);
+app.use("/post", postRouter);
+
+app.use("*", (req, res, next) => {
+  next(new CustomError(404, "The page you are looking for doesn't exist!"));
+});
+
+app.use((error, req, res, next) => {
+  const statusCode = error.code || 500;
+  const message = error.message || "Something went wrong!";
+
+  res.status(statusCode).render("error", {
+    statusCode,
+    message,
+    cssFiles: [
+      "/css/common.css",
+      "/css/header.css",
+      "/css/footer.css",
+      "/css/error.css",
+    ],
+  });
+});
+
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server started successfully on ${port}`);
+});

@@ -1,0 +1,108 @@
+<% layout('layouts/boilerplate') -%>
+
+<main class="auth-page">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <img
+          src="/images/Dribbble-logo.png"
+          alt="Dribbble"
+          class="logo-image"
+        />
+      </div>
+
+      <div class="auth-header">
+        <h1 class="auth-title">Create New Post</h1>
+        <p class="auth-description">
+          Share your creative work with the community
+        </p>
+      </div>
+      <form
+        class="auth-form"
+        action="/post"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <label for="title" class="form-label">Project Title</label>
+          <input
+            type="text"
+            class="form-input"
+            id="title"
+            name="post[title]"
+            placeholder="Enter your project title"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="image" class="form-label">Project Image</label>
+          <input
+            type="file"
+            class="form-input"
+            id="image"
+            name="post[image]"
+            accept="image/*"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            class="form-input"
+            id="description"
+            name="post[description]"
+            rows="4"
+            placeholder="Describe your project..."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="tags" class="form-label">Tags</label>
+          <input
+            type="text"
+            class="form-input"
+            id="tags"
+            name="post[tags]"
+            placeholder="UI, UX, Design (comma separated)"
+          />
+        </div>
+
+        <div class="btn-group-vertical">
+          <button type="submit" class="btn btn-primary btn-save btn-full">
+            <svg
+              class="btn-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              />
+              <polyline points="14,2 14,8 20,8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10,9 9,9 8,9" />
+            </svg>
+            Create Post
+          </button>
+          <a href="/post" class="btn btn-cancel btn-full">
+            <svg
+              class="btn-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M18 6L6 18" />
+              <path d="M6 6l12 12" />
+            </svg>
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

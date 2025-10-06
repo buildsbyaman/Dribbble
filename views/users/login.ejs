@@ -1,0 +1,67 @@
+<%- layout('layouts/boilerplate.ejs') %>
+
+<main class="auth-page">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <img
+          src="/images/Dribbble-logo.png"
+          alt="Dribbble"
+          class="logo-image"
+        />
+      </div>
+
+      <div class="auth-header">
+        <h1 class="auth-title">Sign in to Dribbble</h1>
+        <p class="auth-description">
+          Welcome back! Please sign in to your account.
+        </p>
+      </div>
+
+      <form class="auth-form" action="/user/login" method="POST">
+        <div class="form-group">
+          <input
+            type="text"
+            name="username"
+            placeholder="Enter username"
+            class="form-input"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            class="form-input"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-login btn-full">
+          <svg
+            class="btn-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+            <polyline points="10,17 15,12 10,7" />
+            <line x1="15" y1="12" x2="3" y2="12" />
+          </svg>
+          Log In
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p class="auth-terms">
+          <a href="#" class="auth-link">Forgot your password?</a>
+        </p>
+        <p class="auth-signin">
+          Don't have an account?
+          <a href="/user/signup" class="auth-link auth-link-primary">Sign up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>

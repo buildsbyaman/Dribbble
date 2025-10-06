@@ -1,0 +1,198 @@
+.site-header {
+  position: relative;
+  background-color: var(--color-white);
+  border-bottom: 2px solid var(--color-gray-border);
+}
+
+.main-navigation {
+  height: 5.75rem;
+  padding: 0.6rem 2.3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  width: 5.8rem;
+  height: 3.7rem;
+}
+
+.desktop-nav-menu {
+  display: none;
+  align-items: center;
+  gap: 2.2rem;
+}
+
+.nav-link {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 30px;
+  padding: 0.5rem 0;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.signup-container {
+  display: none;
+}
+
+.login-container {
+  display: flex;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.welcome-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-black);
+}
+
+.username-link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.username-link:hover {
+  color: var(--color-primary-hover);
+}
+
+.mobile-menu-checkbox {
+  display: none;
+}
+
+.hamburger-button {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 0.5rem;
+}
+
+.hamburger-icon {
+  width: 2.2rem;
+  height: 2px;
+  background-color: var(--color-black);
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.hamburger-icon::before,
+.hamburger-icon::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-black);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-icon::before {
+  top: -8px;
+}
+
+.hamburger-icon::after {
+  bottom: -8px;
+}
+
+.mobile-menu-checkbox:checked + .hamburger-button .hamburger-icon {
+  background-color: transparent;
+}
+
+.mobile-menu-checkbox:checked + .hamburger-button .hamburger-icon::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.mobile-menu-checkbox:checked + .hamburger-button .hamburger-icon::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+.mobile-nav-menu {
+  position: fixed;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100vh;
+  padding: 100px 30px;
+  background-color: var(--color-gray-light);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  z-index: 1000;
+  transition: left 0.3s ease-in-out;
+}
+
+.mobile-menu-checkbox:checked ~ .mobile-nav-menu {
+  left: 0;
+}
+
+@media (max-width: 56.24rem) {
+  .hamburger-button {
+    display: flex;
+  }
+
+  .main-navigation {
+    padding: 0.6rem 1.2rem;
+  }
+
+  .nav-left {
+    gap: 1rem;
+  }
+
+  .mobile-nav-menu {
+    width: 100%;
+    left: -100%;
+  }
+}
+
+@media (min-width: 56.25rem) {
+  .signup-container {
+    display: flex;
+  }
+
+  .desktop-nav-menu {
+    display: flex;
+  }
+
+  .mobile-nav-menu {
+    display: none;
+  }
+
+  .hamburger-button {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main-navigation {
+    padding: 0.6rem 2.3rem;
+  }
+}

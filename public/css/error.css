@@ -1,0 +1,291 @@
+.error-section {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background-color: var(--color-gray-light);
+}
+
+.error-content {
+  text-align: center;
+  max-width: 600px;
+  background: var(--color-white);
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  border: 2px solid var(--color-gray-border);
+  box-shadow: 0 8px 30px var(--color-shadow);
+}
+
+.error-illustration {
+  margin-bottom: 2rem;
+}
+
+.error-icon {
+  font-size: 8rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.error-code {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1;
+}
+
+.error-code.red {
+  color: var(--color-red);
+}
+
+.error-title {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+}
+
+.error-message {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.125rem;
+  color: var(--color-gray);
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.error-description {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.125rem;
+  color: var(--color-gray);
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.error-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.error-details {
+  background-color: var(--color-gray-light);
+  border: 2px solid var(--color-gray-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.error-details-title {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0 0 1rem 0;
+}
+
+.error-details-content {
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-size: 0.875rem;
+  color: var(--color-gray-dark);
+  background-color: var(--color-white);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 2px solid var(--color-gray-border);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+
+.error-help {
+  background-color: rgba(5, 41, 158, 0.1);
+  border: 2px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.error-help-title {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-help-text {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.875rem;
+  color: var(--color-gray-dark);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.error-suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+}
+
+.error-suggestion {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.875rem;
+  color: var(--color-gray-dark);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.suggestion-icon {
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.error-contact {
+  background-color: var(--color-white);
+  border: 2px solid var(--color-gray-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.contact-title {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0 0 0.5rem 0;
+}
+
+.contact-text {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.875rem;
+  color: var(--color-gray);
+  margin: 0 0 1rem 0;
+}
+
+.contact-email {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.contact-email:hover {
+  color: var(--color-primary-hover);
+}
+
+.error-404 .error-icon {
+  color: var(--color-primary);
+}
+
+.error-404 .error-code {
+  color: var(--color-primary);
+}
+
+.error-500 .error-icon {
+  color: var(--color-red);
+}
+
+.error-500 .error-code {
+  color: var(--color-red);
+}
+
+.error-403 .error-icon {
+  color: var(--color-gray-dark);
+}
+
+.error-403 .error-code {
+  color: var(--color-gray-dark);
+}
+
+@media (max-width: 768px) {
+  .error-section {
+    padding: 1rem;
+    min-height: calc(100vh - 80px);
+  }
+
+  .error-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .error-code {
+    font-size: 4rem;
+  }
+
+  .error-title {
+    font-size: 2rem;
+  }
+
+  .error-message {
+    font-size: 1rem;
+  }
+
+  .error-icon {
+    font-size: 6rem;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .error-details,
+  .error-help,
+  .error-contact {
+    padding: 1rem;
+  }
+
+  .error-details-content {
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .error-code {
+    font-size: 5rem;
+  }
+
+  .error-title {
+    font-size: 2.25rem;
+  }
+
+  .error-icon {
+    font-size: 7rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .error-section {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
