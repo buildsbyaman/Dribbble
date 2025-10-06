@@ -70,6 +70,17 @@ app.get("/", (req, res) => {
   res.redirect("/post");
 });
 
+app.get("/privacy", (req, res) => {
+  res.render("privacy.ejs", {
+    cssFiles: [
+      "/css/common.css",
+      "/css/header.css",
+      "/css/footer.css",
+      "/css/privacy.css",
+    ],
+  });
+});
+
 app.use("/user", userRouter);
 app.use("/post", postRouter);
 

@@ -38,6 +38,11 @@ router.put("/", isLoggedIn, userController.edit);
 
 router.delete("/", isLoggedIn, userController.delete);
 
+router.post("/login-required", (req, res) => {
+  req.flash("failure", "Please log in to like posts!");
+  res.json({ success: true });
+});
+
 router.get("/logout", isLoggedIn, userController.logout);
 
 module.exports = router;

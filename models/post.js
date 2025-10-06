@@ -17,7 +17,7 @@ const postSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    views: {
+    likes: {
       type: Number,
       default: 0,
     },

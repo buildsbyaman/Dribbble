@@ -10,6 +10,14 @@ const userSchema = new mongoose.Schema({
   age: {
     type: Number,
   },
+  postsLiked: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Post",
+  },
+  postsHearted: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Post",
+  },
   totalContributions: {
     type: Number,
     default: 0,

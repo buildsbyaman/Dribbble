@@ -17,7 +17,12 @@
           Update your account information and personalize your profile.
         </p>
       </div>
-      <form class="auth-form" action="/user?_method=PUT" method="POST">
+      <form
+        class="auth-form needs-validation"
+        action="/user?_method=PUT"
+        method="POST"
+        novalidate
+      >
         <div class="form-group">
           <label for="username" class="form-label">Username</label>
           <input
@@ -26,9 +31,16 @@
             id="username"
             value="<%= currUser.username %>"
             placeholder="Enter username"
-            class="form-input"
+            class="form-input form-control"
+            minlength="3"
+            maxlength="30"
+            pattern="^[a-zA-Z0-9_]+$"
             required
           />
+          <div class="invalid-feedback">
+            Username must be 3-30 characters long and contain only letters,
+            numbers, and underscores.
+          </div>
         </div>
 
         <div class="form-group">
@@ -39,9 +51,12 @@
             id="email"
             value="<%= currUser.email %>"
             placeholder="Enter email address"
-            class="form-input"
+            class="form-input form-control"
             required
           />
+          <div class="invalid-feedback">
+            Please provide a valid email address.
+          </div>
         </div>
 
         <div class="form-group">
@@ -54,10 +69,11 @@
             id="age"
             value="<%= currUser.age || '' %>"
             placeholder="Enter your age"
-            class="form-input"
+            class="form-input form-control"
             min="14"
             max="120"
           />
+          <div class="invalid-feedback">Age must be between 14 and 120.</div>
         </div>
 
         <div class="btn-group-vertical">

@@ -2,6 +2,7 @@
 
 <div class="post-detail-wrapper">
   <div class="post-detail-container">
+    <!-- Back link -->
     <div class="post-navigation">
       <a href="/post" class="back-link">
         <svg
@@ -17,6 +18,7 @@
       </a>
     </div>
 
+    <!-- Showcase -->
     <div class="post-showcase">
       <div class="post-image-container">
         <img
@@ -30,47 +32,62 @@
         <div class="post-header-content">
           <div class="title-area">
             <h1 class="showcase-title"><%= post.title %></h1>
-            <div class="stat-badge-header">
-              <div class="stat-badge">
-                <img class="stat-icon-hearts" src="/images/heart.png" alt="" />
-                <span class="stat-number"><%= post.hearts || 0 %></span>
+
+            <% if(currUser) { %>
+              <div class="stat-badge-header">
+                <!-- Heart -->
+                <div
+                  class="stat-badge heart-badge <%= isHearted ? 'liked' : '' %>"
+                  onclick="toggleHeart(this)"
+                >
+                  <i
+                    class="<%= isHearted ? 'fa-solid' : 'fa-regular' %> fa-heart stat-icon-hearts"
+                    id="heartIcon"
+                    <% if(isHearted) { %> style="color: #ef4444;" <% } %>
+                  ></i>
+                  <span class="stat-number" id="heartCount">
+                    <%= post.hearts || 0 %>
+                  </span>
+                </div>
+
+                <!-- Thumbs -->
+                <div
+                  class="stat-badge thumbs-badge <%= isLiked ? 'liked' : '' %>"
+                  onclick="toggleThumbs(this)"
+                >
+                  <i
+                    class="<%= isLiked ? 'fa-solid' : 'fa-regular' %> fa-thumbs-up stat-icon-likes"
+                    id="thumbsIcon"
+                    <% if(isLiked) { %> style="color: #123ac0;" <% } %>
+                  ></i>
+                  <span class="stat-number" id="thumbsCount">
+                    <%= post.likes || 0 %>
+                  </span>
+                </div>
               </div>
-              <div class="stat-badge">
-                <img class="stat-icon-views" src="/images/views.gif" alt="" />
-                <span class="stat-number"><%= post.views || 0 %></span>
+            <% } else { %>
+              <div class="stat-badge-header">
+                <div class="stat-badge heart-badge" onclick="showLoginMessage()">
+                  <i class="fa-regular fa-heart stat-icon-hearts"></i>
+                  <span class="stat-number"><%= post.hearts || 0 %></span>
+                </div>
+                <div class="stat-badge thumbs-badge" onclick="showLoginMessage()">
+                  <i class="fa-regular fa-thumbs-up stat-icon-likes"></i>
+                  <span class="stat-number"><%= post.likes || 0 %></span>
+                </div>
               </div>
-            </div>
+            <% } %>
           </div>
+
+          <!-- Author -->
           <h1 class="author-name-mini">
             Posted By : <%= post.author.username %>
           </h1>
 
+          <!-- Edit/Delete for author -->
           <% if(currUser && currUser.id == post.author.id) { %>
-          <div class="action-buttons">
-            <a href="/post/<%= post._id %>/edit" class="action-btn edit-btn">
-              <svg
-                class="btn-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                />
-                <path
-                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                />
-              </svg>
-              Edit
-            </a>
-            <form
-              class="delete-action"
-              action="/post/<%= post._id %>?_method=DELETE"
-              method="POST"
-              onsubmit="return confirm('Are you sure you want to delete this post?')"
-            >
-              <button type="submit" class="action-btn delete-btn">
+            <div class="action-buttons">
+              <a href="/post/<%= post._id %>/edit" class="action-btn edit-btn">
                 <svg
                   class="btn-icon"
                   viewBox="0 0 24 24"
@@ -78,29 +95,124 @@
                   stroke="currentColor"
                   stroke-width="2"
                 >
-                  <polyline points="3,6 5,6 21,6" />
-                  <path
-                    d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"
-                  />
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                 </svg>
-                Delete
-              </button>
-            </form>
-          </div>
-          <% } %> <% if (post.description) { %>
-          <div class="description-section">
-            <div class="showcase-description">
-              <% if (post.tags && post.tags.length > 0) { %> <%
-              post.tags.forEach(tag => { %>
-              <span>#<%= tag %> &nbsp;</span>
-              <% }) %>
-              <br />
-              <% } %> <%= post.description %>
+                Edit
+              </a>
+              <form
+                class="delete-action"
+                action="/post/<%= post._id %>?_method=DELETE"
+                method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this post?')"
+              >
+                <button type="submit" class="action-btn delete-btn">
+                  <svg
+                    class="btn-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="3,6 5,6 21,6" />
+                    <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6" />
+                  </svg>
+                  Delete
+                </button>
+              </form>
             </div>
-          </div>
+          <% } %>
+
+          <!-- Description -->
+          <% if (post.description) { %>
+            <div class="description-section">
+              <div class="showcase-description">
+                <% if (post.tags && post.tags.length > 0) { %>
+                  <% post.tags.forEach(tag => { %>
+                    <span>#<%= tag %> &nbsp;</span>
+                  <% }) %>
+                  <br />
+                <% } %>
+                <%= post.description %>
+              </div>
+            </div>
           <% } %>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  async function toggleHeart(element) {
+    const heartIcon = element.querySelector("#heartIcon");
+    const heartCount = element.querySelector("#heartCount");
+    const postId = "<%= post._id %>";
+
+    try {
+      const response = await fetch(`/post/${postId}/stat/hearts`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({})
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.isHearted) {
+          heartIcon.classList.remove("fa-regular");
+          heartIcon.classList.add("fa-solid");
+          heartIcon.style.color = "#ef4444";
+          element.classList.add("liked");
+        } else {
+          heartIcon.classList.remove("fa-solid");
+          heartIcon.classList.add("fa-regular");
+          heartIcon.style.color = "";
+          element.classList.remove("liked");
+        }
+
+        heartCount.textContent = data.hearts;
+        heartIcon.style.transform = "scale(1.2)";
+        setTimeout(() => heartIcon.style.transform = "scale(1)", 150);
+      }
+    } catch (error) {
+      console.error("Error updating hearts:", error);
+    }
+  }
+
+  async function toggleThumbs(element) {
+    const thumbsIcon = element.querySelector("#thumbsIcon");
+    const thumbsCount = element.querySelector("#thumbsCount");
+    const postId = "<%= post._id %>";
+
+    try {
+      const response = await fetch(`/post/${postId}/stat/likes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({})
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.isLiked) {
+          thumbsIcon.classList.remove("fa-regular");
+          thumbsIcon.classList.add("fa-solid");
+          thumbsIcon.style.color = "#123ac0";
+          element.classList.add("liked");
+        } else {
+          thumbsIcon.classList.remove("fa-solid");
+          thumbsIcon.classList.add("fa-regular");
+          thumbsIcon.style.color = "";
+          element.classList.remove("liked");
+        }
+
+        thumbsCount.textContent = data.likes;
+        thumbsIcon.style.transform = "scale(1.2)";
+        setTimeout(() => thumbsIcon.style.transform = "scale(1)", 150);
+      }
+    } catch (error) {
+      console.error("Error updating likes:", error);
+    }
+  }
+</script>

@@ -8,13 +8,13 @@
   background-color: var(--color-white);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 8px 40px var(--color-shadow);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
 }
 
 .post-image-container {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 500px;
   overflow: hidden;
 }
 
@@ -69,7 +69,7 @@
 }
 
 .post-author:hover {
-  color: var(--color-pink);
+  color: var(--color-primary);
 }
 
 .author-avatar {
@@ -155,7 +155,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid var(--color-gray-border);
-  color: var(--color-gray-dark);
+  color: var(--color-text-dark);
 }
 
 .interaction-btn:hover {
@@ -195,8 +195,8 @@
 }
 
 .share-btn:hover {
-  border-color: var(--color-pink);
-  color: var(--color-pink);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
   transform: translateY(-1px);
 }
 
@@ -223,13 +223,13 @@
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.875rem;
   color: var(--color-text-gray);
-  background-color: var(--color-background-lighter);
+  background-color: var(--color-white);
   padding: 0.25rem 0.75rem;
   border-radius: 15px;
 }
 
 .comment-form {
-  background-color: var(--color-background-lighter);
+  background-color: var(--color-white);
   padding: 1.5rem;
   border-radius: 12px;
   margin-bottom: 2rem;
@@ -252,8 +252,8 @@
 }
 
 .comment-textarea:focus {
-  border-color: var(--color-pink);
-  box-shadow: 0 0 0 3px rgba(234, 76, 137, 0.1);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(18, 58, 192, 0.1);
 }
 
 .comment-textarea::placeholder {
@@ -272,7 +272,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   padding: 0.75rem 1.5rem;
-  background: var(--color-gradient-primary);
+  background: var(--color-primary);
   color: var(--color-white);
   border-radius: 25px;
   cursor: pointer;
@@ -280,8 +280,9 @@
 }
 
 .comment-submit:hover {
+  background: var(--color-primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px var(--color-pink-shadow);
+  box-shadow: 0 8px 25px rgba(18, 58, 192, 0.3);
 }
 
 .comments-list {
@@ -354,8 +355,8 @@
 }
 
 .comment-action-btn:hover {
-  color: var(--color-pink);
-  background-color: var(--color-background-lighter);
+  color: var(--color-primary);
+  background-color: var(--color-white);
 }
 
 .comment-text {
@@ -457,7 +458,7 @@
 
 .post-detail-wrapper {
   min-height: calc(100vh - 140px);
-  background: var(--color-gray-light);
+  background: var(--color-white);
   padding: 2rem 0;
 }
 
@@ -469,7 +470,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--color-gray);
+  color: var(--color-text-gray);
   font-weight: 500;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -489,7 +490,7 @@
   background: var(--color-white);
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 20px 50px var(--color-shadow);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
   border: 2px solid var(--color-gray-border);
 }
 
@@ -535,15 +536,15 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1.25rem;
-  background: var(--color-gradient-gray);
+  background: var(--color-white);
   border-radius: 50px;
-  border: 1px solid var(--color-border-slate);
+  border: 1px solid var(--color-gray-border);
 }
 
 .author-avatar-mini {
   width: 32px;
   height: 32px;
-  background: var(--color-gradient-primary);
+  background: var(--color-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -557,7 +558,7 @@
 .author-name-mini {
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--color-text-medium);
+  color: var(--color-text-gray);
 }
 
 .action-buttons {
@@ -581,8 +582,8 @@
 }
 
 .edit-btn {
-  background: var(--color-gray-light);
-  color: var(--color-gray-dark);
+  background: var(--color-white);
+  color: var(--color-text-dark);
   border: 2px solid var(--color-gray-border);
 }
 
@@ -594,15 +595,15 @@
 }
 
 .delete-btn {
-  background: var(--color-gray-light);
-  color: var(--color-red);
+  background: var(--color-white);
+  color: var(--color-error);
   border: 2px solid var(--color-gray-border);
 }
 
 .delete-btn:hover {
-  background: var(--color-red);
+  background: var(--color-error);
   color: var(--color-white);
-  border-color: var(--color-red);
+  border-color: var(--color-error);
   transform: translateY(-2px);
 }
 
@@ -613,14 +614,14 @@
 .description-section {
   width: 100%;
   padding: 1.2rem;
-  background: var(--color-gray-light);
+  background: var(--color-white);
   border-radius: 16px;
   border: 2px solid var(--color-gray-border);
 }
 
 .showcase-description {
   font-size: 1.125rem;
-  color: var(--color-gray-dark);
+  color: var(--color-text-dark);
   line-height: 1.7;
   margin: 0;
 }
@@ -635,7 +636,7 @@
 .stat-badge-header {
   display: flex;
   justify-content: space-between;
-  gap: 1.7rem;
+  gap: 1rem;
 }
 
 .stat-badge {
@@ -644,14 +645,57 @@
   gap: 0.4rem;
 }
 
-.stat-icon-hearts {
-  width: 24px;
-  height: 24px;
+.stat-icon-hearts,
+.stat-icon-likes {
+  font-size: 1.8rem;
 }
 
-.stat-icon-views {
-  width: 40px;
-  height: 40px;
+.heart-badge {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.heart-badge:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  transform: translateY(-2px);
+}
+
+.heart-badge.liked {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.stat-icon-hearts {
+  transition: all 0.2s ease;
+}
+
+.stat-icon-hearts:hover {
+  transform: scale(1.1);
+}
+
+.thumbs-badge {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.thumbs-badge:hover {
+  background-color: rgba(18, 58, 192, 0.1);
+  transform: translateY(-2px);
+}
+
+.thumbs-badge.liked {
+  background-color: rgba(18, 58, 192, 0.1);
+}
+
+.stat-icon-thumbs {
+  transition: all 0.2s ease;
+}
+
+.stat-icon-thumbs:hover {
+  transform: scale(1.1);
 }
 
 .stat-number {
@@ -662,16 +706,16 @@
 
 .stat-text {
   font-size: 0.875rem;
-  color: var(--color-text-slate);
+  color: var(--color-text-gray);
   font-weight: 500;
 }
 
 .publication-info {
   text-align: center;
   padding: 2rem;
-  background: var(--color-gradient-light-gray);
+  background: var(--color-white);
   border-radius: 16px;
-  border: 1px solid var(--color-border-slate);
+  border: 1px solid var(--color-gray-border);
 }
 
 .pub-detail {
@@ -682,7 +726,7 @@
 
 .pub-label {
   font-size: 0.875rem;
-  color: var(--color-text-slate);
+  color: var(--color-text-gray);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -696,7 +740,7 @@
 
 .post-detail-page {
   min-height: calc(100vh - 140px);
-  background-color: var(--color-background-light);
+  background-color: var(--color-white);
   padding: 2rem 0;
 }
 
@@ -713,7 +757,7 @@
   background: var(--color-white);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px var(--color-black-overlay-light);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .post-image-section {
@@ -784,8 +828,8 @@
 
 .post-stats {
   padding: 1.5rem 0;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-gray-border);
+  border-bottom: 1px solid var(--color-gray-border);
   margin-bottom: 2rem;
 }
 
@@ -829,7 +873,7 @@
 }
 
 .tag {
-  background: var(--color-gradient-primary);
+  background: var(--color-primary);
   color: var(--color-white);
   padding: 0.375rem 0.75rem;
   border-radius: 20px;
@@ -847,7 +891,7 @@
   background: var(--color-white);
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 4px 20px var(--color-black-overlay-light);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .author-info {
@@ -860,12 +904,12 @@
 .author-avatar {
   width: 60px;
   height: 60px;
-  background: var(--color-gradient-primary);
+  background: var(--color-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px var(--color-primary-shadow-light);
+  box-shadow: 0 4px 12px rgba(18, 58, 192, 0.2);
   flex-shrink: 0;
 }
 
@@ -887,7 +931,7 @@
 }
 
 .post-meta {
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-gray-border);
   padding-top: 1.5rem;
 }
 
@@ -917,5 +961,5 @@
   background: var(--color-white);
   border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 4px 20px var(--color-black-overlay-light);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }

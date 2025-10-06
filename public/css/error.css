@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
-  background-color: var(--color-gray-light);
+  background-color: var(--color-white);
 }
 
 .error-content {
@@ -14,7 +14,7 @@
   padding: 3rem 2rem;
   border-radius: 20px;
   border: 2px solid var(--color-gray-border);
-  box-shadow: 0 8px 30px var(--color-shadow);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .error-illustration {
@@ -38,7 +38,7 @@
 }
 
 .error-code.red {
-  color: var(--color-red);
+  color: var(--color-error);
 }
 
 .error-title {
@@ -53,7 +53,7 @@
 .error-message {
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.125rem;
-  color: var(--color-gray);
+  color: var(--color-text-gray);
   margin: 0 0 2rem 0;
   line-height: 1.6;
 }
@@ -61,7 +61,7 @@
 .error-description {
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.125rem;
-  color: var(--color-gray);
+  color: var(--color-text-gray);
   margin: 0 0 2rem 0;
   line-height: 1.6;
 }
@@ -81,7 +81,7 @@
 }
 
 .error-details {
-  background-color: var(--color-gray-light);
+  background-color: var(--color-white);
   border: 2px solid var(--color-gray-border);
   border-radius: 12px;
   padding: 1.5rem;
@@ -100,7 +100,7 @@
 .error-details-content {
   font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
   font-size: 0.875rem;
-  color: var(--color-gray-dark);
+  color: var(--color-text-dark);
   background-color: var(--color-white);
   padding: 1rem;
   border-radius: 8px;
@@ -133,7 +133,7 @@
 .error-help-text {
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.875rem;
-  color: var(--color-gray-dark);
+  color: var(--color-text-dark);
   margin: 0;
   line-height: 1.5;
 }
@@ -147,7 +147,7 @@
 .error-suggestion {
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.875rem;
-  color: var(--color-gray-dark);
+  color: var(--color-text-dark);
   margin-bottom: 0.5rem;
   display: flex;
   align-items: flex-start;
@@ -181,7 +181,7 @@
 .contact-text {
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.875rem;
-  color: var(--color-gray);
+  color: var(--color-text-gray);
   margin: 0 0 1rem 0;
 }
 
@@ -207,19 +207,19 @@
 }
 
 .error-500 .error-icon {
-  color: var(--color-red);
+  color: var(--color-error);
 }
 
 .error-500 .error-code {
-  color: var(--color-red);
+  color: var(--color-error);
 }
 
 .error-403 .error-icon {
-  color: var(--color-gray-dark);
+  color: var(--color-text-dark);
 }
 
 .error-403 .error-code {
-  color: var(--color-gray-dark);
+  color: var(--color-text-dark);
 }
 
 @media (max-width: 768px) {

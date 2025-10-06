@@ -14,6 +14,18 @@
         <a href="/post" class="nav-link">Explore</a>
         <a href="/post" class="nav-link">Hire a Designer</a>
         <a href="/post/new" class="nav-link">Publish a Post</a>
+        <a href="/privacy" class="nav-link">Privacy</a>
+        <% if(!currUser) { %>
+        <a href="/user/signup" class="btn btn-signup">Sign up</a>
+        <a href="/user/login" class="btn btn-login">Log In</a>
+        <% } else { %>
+        <span class="welcome-text"
+          >Welcome,<a href="/user" class="username-link"
+            ><%= currUser.username %>!</a
+          ></span
+        >
+        <a href="/user/logout" class="btn btn-login">Logout</a>
+        <% } %>
       </div>
 
       <div class="logo-container">
@@ -26,6 +38,7 @@
         <a href="/post" class="nav-link">Explore</a>
         <a href="#" class="nav-link">Hire a Designer</a>
         <a href="/post/new" class="nav-link">Publish a Post</a>
+        <a href="/privacy" class="nav-link">Privacy</a>
       </div>
     </div>
 

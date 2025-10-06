@@ -1,6 +1,7 @@
 .site-footer {
-  padding: 2rem 0;
-  background-color: var(--color-gray-light);
+  padding: 1rem 0;
+  background-color: var(--color-white);
+  border-top: 2px solid var(--color-gray-border);
 }
 
 .footer-content {
@@ -45,7 +46,7 @@
 
 .footer-bottom-link {
   font-size: 13px;
-  color: var(--color-gray);
+  color: var(--color-text-gray);
   transition: color 0.3s ease;
 }
 
@@ -55,7 +56,7 @@
 
 .copyright {
   font-size: 13px;
-  color: var(--color-gray);
+  color: var(--color-text-gray);
 }
 
 @media (max-width: 56.24rem) {

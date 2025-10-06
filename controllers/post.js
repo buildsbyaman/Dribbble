@@ -11,8 +11,23 @@ const extractPublicId = (url) => {
 module.exports.indexShow = async (req, res, next) => {
   try {
     const postData = await Post.find().populate("author");
+
+    let userLikes = [];
+    let userHearts = [];
+
+    if (req.user) {
+      const User = require("../models/user.js");
+      const user = await User.findById(req.user._id);
+      if (user) {
+        userLikes = user.postsLiked.map((id) => id.toString());
+        userHearts = user.postsHearted.map((id) => id.toString());
+      }
+    }
+
     res.render("posts/index.ejs", {
       postData,
+      userLikes,
+      userHearts,
       cssFiles: [
         "/css/common.css",
         "/css/header.css",
@@ -52,8 +67,23 @@ module.exports.individualShow = async (req, res) => {
       req.flash("failure", "No post found with this ID!");
       return res.redirect("/post");
     }
+
+    let isLiked = false;
+    let isHearted = false;
+
+    if (req.user) {
+      const User = require("../models/user.js");
+      const user = await User.findById(req.user._id);
+      if (user) {
+        isLiked = user.postsLiked.includes(id);
+        isHearted = user.postsHearted.includes(id);
+      }
+    }
+
     res.render("posts/show.ejs", {
       post,
+      isLiked,
+      isHearted,
       cssFiles: [
         "/css/common.css",
         "/css/header.css",
@@ -154,7 +184,6 @@ module.exports.edit = async (req, res) => {
         image = req.file.path;
       }
       const { title, description, tags } = req.body.post;
-      console.log(image);
       await Post.findByIdAndUpdate(
         id,
         {

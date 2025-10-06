@@ -1,4 +1,5 @@
 const User = require("../models/user.js");
+const Post = require("../models/post.js");
 
 module.exports.signupShow = (req, res) => {
   res.render("users/signup.ejs", {
@@ -27,15 +28,15 @@ module.exports.signup = async (req, res) => {
     const { username, email, password } = req.body.user;
     const trimmedUsername = username.trim();
     const trimmedEmail = email.trim();
-    
+
     if (!trimmedUsername || !trimmedEmail || !password) {
       req.flash("failure", "All fields are required.");
       return res.redirect("/user/signup");
     }
-    
-    const newUser = new User({ 
-      username: trimmedUsername, 
-      email: trimmedEmail.toLowerCase() 
+
+    const newUser = new User({
+      username: trimmedUsername,
+      email: trimmedEmail.toLowerCase(),
     });
     const registeredUser = await User.register(newUser, password);
 
@@ -64,6 +65,13 @@ module.exports.login = (req, res) => {
 
 module.exports.profileShow = async (req, res) => {
   try {
+    const userPosts = await Post.find({ author: req.user._id })
+      .populate("author", "username")
+      .sort({ createdAt: -1 });
+
+    const userHearts = req.user.postsHearted || [];
+    const userLikes = req.user.postsLiked || [];
+
     res.render("users/show.ejs", {
       cssFiles: [
         "/css/common.css",
@@ -71,6 +79,9 @@ module.exports.profileShow = async (req, res) => {
         "/css/footer.css",
         "/css/user-profile.css",
       ],
+      userPosts,
+      userHearts,
+      userLikes,
     });
   } catch (error) {
     req.flash("failure", "Unable to load user page.");

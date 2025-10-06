@@ -27,61 +27,79 @@
       <% } %>
 
       <form
-        class="auth-form"
+        class="auth-form needs-validation"
         action="/post/<%= post._id %>?_method=PUT"
         method="POST"
         enctype="multipart/form-data"
+        novalidate
       >
         <div class="form-group">
           <label for="title" class="form-label">Project Title</label>
           <input
             type="text"
-            class="form-input"
+            class="form-input form-control"
             id="title"
             name="post[title]"
             value="<%= post.title || '' %>"
             placeholder="Enter your project title"
+            minlength="3"
+            maxlength="100"
             required
           />
+          <div class="invalid-feedback">
+            Project title must be between 3 and 100 characters long.
+          </div>
         </div>
 
         <div class="form-group">
           <label for="image" class="form-label">Update Image</label>
           <input
             type="file"
-            class="form-input"
+            class="form-input form-control"
             id="image"
             name="post[image]"
-            accept="image/*"
+            accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
           />
           <small class="form-helper-text"
             >Leave empty to keep current image</small
           >
+          <div class="invalid-feedback">
+            Please select a valid image file (JPEG, PNG, GIF, or WebP).
+          </div>
         </div>
 
         <div class="form-group">
           <label for="description" class="form-label">Description</label>
           <textarea
-            class="form-input"
+            class="form-input form-control"
             id="description"
             name="post[description]"
             rows="4"
             placeholder="Describe your project..."
+            maxlength="1000"
           >
 <%= post.description || '' %></textarea
           >
+          <div class="invalid-feedback">
+            Description cannot exceed 1000 characters.
+          </div>
         </div>
 
         <div class="form-group">
           <label for="tags" class="form-label">Tags</label>
           <input
             type="text"
-            class="form-input"
+            class="form-input form-control"
             id="tags"
             name="post[tags]"
             value="<%= post.tags ? post.tags.join(', ') : '' %>"
             placeholder="UI, UX, Design (comma separated)"
+            pattern="^[a-zA-Z0-9\s,.-]*$"
           />
+          <div class="invalid-feedback">
+            Tags can only contain letters, numbers, spaces, commas, periods, and
+            hyphens.
+          </div>
         </div>
 
         <div class="btn-group-vertical">

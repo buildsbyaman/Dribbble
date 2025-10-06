@@ -86,11 +86,11 @@
   justify-content: center;
   cursor: pointer;
   z-index: 1001;
-  padding: 0.5rem;
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
 }
 
 .hamburger-icon {
-  width: 2.2rem;
+  width: 2rem;
   height: 2px;
   background-color: var(--color-black);
   border-radius: 2px;
@@ -138,7 +138,7 @@
   width: 40%;
   height: 100vh;
   padding: 100px 30px;
-  background-color: var(--color-gray-light);
+  background-color: var(--color-white);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
@@ -157,6 +157,11 @@
 @media (max-width: 56.24rem) {
   .hamburger-button {
     display: flex;
+    position: relative;
+  }
+
+  .nav-right {
+    display: none;
   }
 
   .main-navigation {
