@@ -59,12 +59,14 @@
           <div class="gallery-header">
             <div class="post-info">
               <h3 class="post-title"><%= post.title %></h3>
+              <% if(post.author) { %>
               <div class="post-author">
                 <span class="author-avatar">
                   <%= post.author.username.charAt(0).toUpperCase() %>
                 </span>
                 <span class="author-name"><%= post.author.username %></span>
               </div>
+              <% } %>
             </div>
 
             <div class="post-actions">

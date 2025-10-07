@@ -1,43 +1,54 @@
 <%- layout('layouts/boilerplate.ejs') %>
 
-<section class="error-section">
-  <div class="error-content">
-    <h1 class="error-code red"><%= statusCode || '500' %></h1>
-    <h2 class="error-title">
-      <% if (statusCode === 404) { %> Page Not Found <% } else if (statusCode
-      === 500) { %> Server Error <% } else { %> Something Went Wrong <% } %>
-    </h2>
-    <p class="error-message">
-      <%= message || 'The page you are looking for does not exist.' %>
-    </p>
+<main class="error-page">
+  <div class="error-container">
+    <!-- Error Header -->
+    <div class="error-header">
+      <div class="error-illustration">
+        <div class="error-code"><%= statusCode || '500' %></div>
+      </div>
+
+      <h1 class="error-title">
+        <% if (statusCode === 404) { %> Page Not Found <% } else if (statusCode
+        === 500) { %> Server Error <% } else { %> Something Went Wrong <% } %>
+      </h1>
+
+      <p class="error-subtitle">
+        <%= message || 'The page you are looking for does not exist.' %>
+      </p>
+    </div>
+
+    <!-- Error Actions -->
     <div class="error-actions">
-      <div class="btn-group">
-        <a href="/post" class="btn btn-primary">
-          <svg
-            class="btn-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <polyline points="9,22 9,12 15,12 15,22" />
-          </svg>
+      <div class="error-buttons">
+        <a href="/post" class="btn btn-primary error-btn">
+          <i class="fas fa-home btn-icon"></i>
           Go Home
         </a>
-        <button onclick="history.back()" class="btn btn-back">
-          <svg
-            class="btn-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <polyline points="15,18 9,12 15,6" />
-          </svg>
+        <button onclick="history.back()" class="btn btn-secondary error-btn">
+          <i class="fas fa-arrow-left btn-icon"></i>
           Go Back
         </button>
       </div>
     </div>
+
+    <!-- Helpful Links -->
+    <div class="error-help">
+      <p class="help-text">You might want to try:</p>
+      <div class="help-links">
+        <a href="/post" class="help-link">
+          <i class="fas fa-images"></i>
+          Browse Posts
+        </a>
+        <a href="/user/signup" class="help-link">
+          <i class="fas fa-user-plus"></i>
+          Sign Up
+        </a>
+        <a href="/privacy" class="help-link">
+          <i class="fas fa-shield-alt"></i>
+          Privacy Policy
+        </a>
+      </div>
+    </div>
   </div>
-</section>
+</main>

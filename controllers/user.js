@@ -26,7 +26,7 @@ module.exports.loginShow = (req, res) => {
 module.exports.signup = async (req, res) => {
   try {
     const { username, email, password } = req.body.user;
-    const trimmedUsername = username.trim();
+    const trimmedUsername = username.trim().toLowerCase();
     const trimmedEmail = email.trim();
 
     if (!trimmedUsername || !trimmedEmail || !password) {
@@ -103,7 +103,8 @@ module.exports.editShow = async (req, res) => {
 module.exports.edit = async (req, res) => {
   try {
     const { username, email, age } = req.body.user;
-    if (username !== req.user.username) {
+    const newUsername = username.trim().toLowerCase();
+    if (newUsername !== req.user.username) {
       const existingUser = await User.findOne({ username: username });
       if (existingUser) {
         req.flash("failure", "Username is already taken.");

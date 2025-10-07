@@ -45,19 +45,14 @@ passport.deserializeUser(User.deserializeUser());
 async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGOATLASURL);
+    console.log("Successfully connected to DB!");
   } catch (error) {
-    console.error("Database connection failed:", error);
+    console.error("Error while connecting to Database!");
     process.exit(1);
   }
 }
 
-connectDB()
-  .then(() => {
-    console.log("Successfully connected to DB.");
-  })
-  .catch((error) => {
-    console.log("Error while connecting to DB!", error.message);
-  });
+connectDB();
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");

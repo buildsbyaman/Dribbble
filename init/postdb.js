@@ -3,7 +3,7 @@ const Post = require("../models/post.js");
 const dotenv = require("dotenv");
 dotenv.config({ quiet: true });
 
-const authorId = new mongoose.Types.ObjectId("68e410beb10dfcdf6accece9");
+const authorId = new mongoose.Types.ObjectId("68e434abd8fd41fad0d7f25e");
 
 const postInitialData = [
   {
