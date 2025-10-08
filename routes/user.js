@@ -43,6 +43,10 @@ router.post("/login-required", (req, res) => {
 
 router.get("/logout", isLoggedIn, userController.logout);
 
+router.get("/", isLoggedIn, (req, res) => {
+  res.redirect(`/user/${req.user._id}`);
+});
+
 router.get("/:id", userController.profileShow);
 
 module.exports = router;

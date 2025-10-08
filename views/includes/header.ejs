@@ -20,7 +20,8 @@
         <a href="/user/login" class="btn btn-login">Log In</a>
         <% } else { %>
         <span class="welcome-text"
-          >Welcome,<a href="/user" class="username-link"
+          >Welcome,
+          <a href="/user/<%= currUser._id %>" class="username-link"
             ><%= currUser.username %>!</a
           ></span
         >
