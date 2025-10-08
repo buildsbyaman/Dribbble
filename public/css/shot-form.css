@@ -1,4 +1,4 @@
-.post-form-container {
+.shot-form-container {
   max-width: 800px;
   margin: 2rem auto;
   padding: 0 1rem;
@@ -30,7 +30,7 @@
   padding: 2rem;
 }
 
-.post-form {
+.shot-form {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -57,7 +57,7 @@
   font-size: 1.2em;
 }
 
-.form-input-post {
+.form-input-shot {
   all: unset;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1rem;
@@ -71,13 +71,13 @@
   width: 100%;
 }
 
-.form-input-post:focus {
+.form-input-shot:focus {
   border-color: var(--color-primary);
   background-color: var(--color-white);
   box-shadow: 0 0 0 3px rgba(18, 58, 192, 0.1);
 }
 
-.form-input-post::placeholder {
+.form-input-shot::placeholder {
   color: var(--color-text-form);
 }
 
@@ -341,7 +341,7 @@
 }
 
 @media (max-width: 768px) {
-  .post-form-container {
+  .shot-form-container {
     margin: 1rem auto;
   }
 
@@ -385,7 +385,7 @@
 }
 
 @media (min-width: 1400px) {
-  .post-form-container {
+  .shot-form-container {
     max-width: 1000px;
   }
 }

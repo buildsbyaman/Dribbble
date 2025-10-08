@@ -102,9 +102,9 @@
           );
         });
 
-        window.toggleHeartHome = async function (postId, element) {
+        window.toggleHeartHome = async function (shotId, element) {
           try {
-            const response = await fetch(`/post/${postId}/stat/hearts`, {
+            const response = await fetch(`/shot/${shotId}/stat/hearts`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -139,9 +139,9 @@
           }
         };
 
-        window.toggleLikeHome = async function (postId, element) {
+        window.toggleLikeHome = async function (shotId, element) {
           try {
-            const response = await fetch(`/post/${postId}/stat/likes`, {
+            const response = await fetch(`/shot/${shotId}/stat/likes`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

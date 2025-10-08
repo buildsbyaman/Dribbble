@@ -43,68 +43,58 @@
 
 <section class="gallery-section">
   <div class="gallery-grid">
-    <% postData.forEach(function(post, index) { %>
+    <% shotData.forEach(function(shot, index) { %>
       <div class="gallery-item">
         <div class="gallery-image-wrapper">
-          <a href="/post/<%= post.id %>">
-            <img
-              class="gallery-image"
-              src="<%= post.image %>"
-              alt="<%= post.title %>"
-            />
+          <a href="/shot/<%= shot.id %>">
+            <img class="gallery-image" src="<%= shot.image %>" alt="<%= shot.title %>" />
           </a>
         </div>
 
         <div class="gallery-content">
           <div class="gallery-header">
-            <div class="post-info">
-              <h3 class="post-title"><%= post.title %></h3>
-              <% if(post.author) { %>
-              <div class="post-author">
-                <span class="author-avatar">
-                  <%= post.author.username.charAt(0).toUpperCase() %>
-                </span>
-                <span class="author-name"><%= post.author.username %></span>
-              </div>
+            <div class="shot-info">
+              <h3 class="shot-title"><%= shot.title %></h3>
+
+              <% if(shot.author) { %>
+                <div class="shot-author">
+                  <span class="author-avatar">
+                    <%= shot.author.username.charAt(0).toUpperCase() %>
+                  </span>
+                  <span class="author-name"><a class="author-name" href="/user/<%= shot.author.id %>"><%= shot.author.username %></a></span>
+                </div>
               <% } %>
             </div>
 
-            <div class="post-actions">
+            <div class="shot-actions">
               <% if (currUser) { %>
                 <% 
-                  const isHearted = userHearts.includes(post._id.toString()); 
-                  const isLiked = userLikes.includes(post._id.toString()); 
+                  const isHearted = userHearts.includes(shot._id.toString());
+                  const isLiked = userLikes.includes(shot._id.toString());
                 %>
 
-                <div
-                  class="stat-badge heart-badge <%= isHearted ? 'liked' : '' %>"
-                  onclick="toggleHeartHome('<%= post._id %>', this)"
-                >
-                  <i
-                    class="<%= isHearted ? 'fa-solid' : 'fa-regular' %> fa-heart stat-icon-hearts"
-                    <% if (isHearted) { %> style="color: #ef4444;" <% } %>
-                  ></i>
-                  <span class="stat-number"><%= post.hearts || 0 %></span>
+                <div class="stat-badge heart-badge <%= isHearted ? 'liked' : '' %>" onclick="toggleHeartHome('<%= shot._id %>', this)">
+                  <i class="<%= isHearted ? 'fa-solid' : 'fa-regular' %> fa-heart stat-icon-hearts"
+                    <% if (isHearted) { %> style="color: #ef4444;" <% } %>>
+                  </i>
+                  <span class="stat-number"><%= shot.hearts || 0 %></span>
                 </div>
 
-                <div
-                  class="stat-badge thumbs-badge <%= isLiked ? 'liked' : '' %>"
-                  onclick="toggleLikeHome('<%= post._id %>', this)"
-                >
-                  <i
-                    class="<%= isLiked ? 'fa-solid' : 'fa-regular' %> fa-thumbs-up stat-icon-thumbs"
-                    <% if (isLiked) { %> style="color: #123ac0;" <% } %>
-                  ></i>
-                  <span class="stat-number"><%= post.likes || 0 %></span>
+                <div class="stat-badge thumbs-badge <%= isLiked ? 'liked' : '' %>" onclick="toggleLikeHome('<%= shot._id %>', this)">
+                  <i class="<%= isLiked ? 'fa-solid' : 'fa-regular' %> fa-thumbs-up stat-icon-thumbs"
+                    <% if (isLiked) { %> style="color: #123ac0;" <% } %>>
+                  </i>
+                  <span class="stat-number"><%= shot.likes || 0 %></span>
                 </div>
+
               <% } else { %>
                 <div class="stat-badge heart-badge" onclick="showLoginMessage()">
                   <i class="fa-regular fa-heart stat-icon-hearts"></i>
-                  <span class="stat-number"><%= post.hearts || 0 %></span>
+                  <span class="stat-number"><%= shot.hearts || 0 %></span>
                 </div>
                 <div class="stat-badge thumbs-badge" onclick="showLoginMessage()">
                   <i class="fa-regular fa-thumbs-up stat-icon-thumbs"></i>
-                  <span class="stat-number"><%= post.likes || 0 %></span>
+                  <span class="stat-number"><%= shot.likes || 0 %></span>
                 </div>
               <% } %>
             </div>

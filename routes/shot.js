@@ -1,12 +1,12 @@
 const express = require("express");
 const { isLoggedIn } = require("../middleware");
-const { postSchema } = require("../model.js");
+const { shotSchema } = require("../model.js");
 const router = express.Router();
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const statRouter = require("./stat.js");
-const postController = require("../controllers/post.js");
+const shotController = require("../controllers/shot.js");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -21,21 +21,21 @@ const storage = new CloudinaryStorage({
   },
 });
 
-const postSchemaValidatorForNew = (req, res, next) => {
-  const { error } = postSchema.validate(req.body.post);
+const shotSchemaValidatorForNew = (req, res, next) => {
+  const { error } = shotSchema.validate(req.body.shot);
   if (error) {
     req.flash("failure", error.message);
-    res.redirect("/post/new");
+    res.redirect("/shot/new");
   } else {
     next();
   }
 };
 
-const postSchemaValidatorForUpdate = (req, res, next) => {
-  const { error } = postSchema.validate(req.body.post);
+const shotSchemaValidatorForUpdate = (req, res, next) => {
+  const { error } = shotSchema.validate(req.body.shot);
   if (error) {
     req.flash("failure", error.message);
-    res.redirect("/post/new");
+    res.redirect(`/shot/${req.params.id}/edit`);
   } else {
     next();
   }
@@ -43,32 +43,32 @@ const postSchemaValidatorForUpdate = (req, res, next) => {
 
 const upload = multer({ storage: storage });
 
-router.get("/", postController.indexShow);
+router.get("/", shotController.indexShow);
 
-router.get("/new", isLoggedIn, postController.newShow);
+router.get("/new", isLoggedIn, shotController.newShow);
 
-router.get("/:id", postController.individualShow);
+router.get("/:id", shotController.individualShow);
 
 router.post(
   "/",
   isLoggedIn,
-  upload.single("post[image]"),
-  postSchemaValidatorForNew,
-  postController.new
+  upload.single("shot[image]"),
+  shotSchemaValidatorForNew,
+  shotController.new
 );
 
-router.get("/:id/edit", isLoggedIn, postController.editShow);
+router.get("/:id/edit", isLoggedIn, shotController.editShow);
 
 router.put(
   "/:id",
   isLoggedIn,
-  upload.single("post[image]"),
-  postSchemaValidatorForUpdate,
-  postController.edit
+  upload.single("shot[image]"),
+  shotSchemaValidatorForUpdate,
+  shotController.edit
 );
 
 router.use("/:id/stat", statRouter);
 
-router.delete("/:id", isLoggedIn, postController.delete);
+router.delete("/:id", isLoggedIn, shotController.delete);
 
 module.exports = router;

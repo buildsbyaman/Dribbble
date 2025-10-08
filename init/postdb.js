@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const Post = require("../models/post.js");
+const Shot = require("../models/shot.js");
 const dotenv = require("dotenv");
 dotenv.config({ quiet: true });
 
 const authorId = new mongoose.Types.ObjectId("68e434abd8fd41fad0d7f25e");
 
-const postInitialData = [
+const shotInitialData = [
   {
     title: "UI/UX Designer",
     image: "/images/1.webp",
@@ -120,10 +120,10 @@ async function connectDB() {
   await mongoose.connect(process.env.MONGOATLASURL);
   console.log("Successfully connected to DB.");
 
-  await Post.deleteMany({});
+  await Shot.deleteMany({});
   console.log("Successfully cleared old data!");
 
-  await Post.insertMany(postInitialData);
+  await Shot.insertMany(shotInitialData);
   console.log("Successfully inserted new data!");
 
   mongoose.disconnect();

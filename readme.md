@@ -9,10 +9,10 @@ A modern, full-stack web application inspired by Dribbble, built with Express.js
 ### Core Functionality
 
 - 🔐 **User Authentication** - Secure signup, login, and logout
-- 📸 **Post Management** - Create, edit, and delete creative posts
+- 📸 **Shot Management** - Create, edit, and delete creative shots
 - 🖼️ **Image Upload** - Cloudinary integration for optimized image storage
 - 👤 **User Profiles** - Personalized user pages and account management
-- 🏷️ **Tagging System** - Organize posts with custom tags
+- 🏷️ **Tagging System** - Organize shots with custom tags
 - 📱 **Responsive Design** - Mobile-first, fully responsive interface
 
 ### Technical Features
@@ -35,42 +35,42 @@ A modern, full-stack web application inspired by Dribbble, built with Express.js
 
 ```
 Dribbble/
-├── 📁 controllers/          # Route controllers
-│   ├── post.js             # Post-related logic
+├── 📁 controllers/      # Route controllers
+│   ├── shot.js             # Shot-related logic
 │   └── user.js             # User-related logic
-├── 📁 models/              # Mongoose schemas
+├── 📁 models/           # Mongoose schemas
 │   ├── comment.js          # Comment model
-│   ├── post.js             # Post model
+│   ├── shot.js             # Shot model
 │   └── user.js             # User model
-├── 📁 public/              # Static assets
+├── 📁 public/           # Static assets
 │   ├── 📁 css/             # Stylesheets
 │   └── 📁 images/          # Static images
-├── 📁 routes/              # Express routes
-│   ├── post.js             # Post routes
+├── 📁 routes/           # Express routes
+│   ├── shot.js             # Shot routes
 │   └── user.js             # User routes
-├── 📁 utilities/           # Helper functions
+├── 📁 utilities/        # Helper functions
 │   └── CustomError.js      # Custom error class
-├── 📁 views/               # EJS templates
+├── 📁 views/            # EJS templates
 │   ├── 📁 includes/        # Partial templates
 │   ├── 📁 layouts/         # Layout templates
-│   ├── 📁 posts/           # Post templates
+│   ├── 📁 shots/           # Shot templates
 │   └── 📁 users/           # User templates
-├── app.js                  # Main application file
-├── middleware.js           # Custom middleware
-├── model.js               # Validation schemas
-└── package.json           # Dependencies
+├── app.js               # Main application file
+├── middleware.js        # Custom middleware
+├── model.js             # Validation schemas
+└── package.json         # Dependencies
 ```
 
 ## 🛠️ Technology Stack
 
 ### Backend
 
-- **Express.js** - Web application framework
-- **MongoDB** - NoSQL database
-- **Mongoose** - MongoDB object modeling
-- **Passport.js** - Authentication middleware
-- **Multer** - File upload handling
-- **Cloudinary** - Image storage and optimization
+- **Express.js**    -  Web application framework
+- **MongoDB**       -  NoSQL database
+- **Mongoose**      -  MongoDB object modeling
+- **Passport.js**   -  Authentication middleware
+- **Multer**        -  File upload handling
+- **Cloudinary**    -  Image storage and optimization
 
 ### Frontend
 

@@ -6,7 +6,7 @@ module.exports.userSchema = joi.object({
   password: joi.string().min(6).required(),
 });
 
-module.exports.postSchema = joi.object({
+module.exports.shotSchema = joi.object({
   title: joi.string().min(3).max(20).required(),
   description: joi.string().min(10).max(5000).required(),
   tags: joi.string().required().required(),

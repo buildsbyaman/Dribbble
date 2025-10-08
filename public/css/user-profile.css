@@ -95,13 +95,13 @@
   color: var(--color-primary);
 }
 
-.posts-grid {
+.shots-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
 
-.post-card {
+.shot-card {
   background-color: var(--color-white);
   border-radius: 12px;
   overflow: hidden;
@@ -109,30 +109,30 @@
   transition: all 0.3s ease;
 }
 
-.post-card:hover {
+.shot-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
-.post-image-wrapper {
+.shot-image-wrapper {
   position: relative;
   width: 100%;
   height: 200px;
   overflow: hidden;
 }
 
-.post-image {
+.shot-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.post-card:hover .post-image {
+.shot-card:hover .shot-image {
   transform: scale(1.05);
 }
 
-.post-overlay {
+.shot-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -146,19 +146,19 @@
   justify-content: center;
 }
 
-.post-card:hover .post-overlay {
+.shot-card:hover .shot-overlay {
   opacity: 1;
 }
 
-.post-overlay-actions {
+.shot-overlay-actions {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   align-items: center;
 }
 
-.view-post-btn,
-.edit-post-btn {
+.view-shot-btn,
+.edit-shot-btn {
   all: unset;
   background-color: var(--color-white);
   color: var(--color-black);
@@ -175,23 +175,23 @@
   font-size: 0.875rem;
 }
 
-.view-post-btn:hover {
+.view-shot-btn:hover {
   background-color: var(--color-primary);
   color: var(--color-white);
   transform: scale(1.05);
 }
 
-.edit-post-btn:hover {
+.edit-shot-btn:hover {
   background-color: var(--color-success);
   color: var(--color-white);
   transform: scale(1.05);
 }
 
-.post-content {
+.shot-content {
   padding: 1.5rem;
 }
 
-.post-title {
+.shot-title {
   font-family: "Source Serif 4", Georgia, serif;
   font-size: 1.25rem;
   font-weight: 600;
@@ -200,7 +200,7 @@
   line-height: 1.3;
 }
 
-.post-description {
+.shot-description {
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.875rem;
   color: var(--color-text-gray);
@@ -208,7 +208,7 @@
   margin: 0 0 1rem 0;
 }
 
-.post-meta {
+.shot-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -217,19 +217,19 @@
   color: var(--color-text-form);
 }
 
-.post-date {
+.shot-date {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
-.post-stats {
+.shot-stats {
   display: flex;
   gap: 1rem;
   align-items: center;
 }
 
-.post-stat {
+.shot-stat {
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -262,7 +262,7 @@
   margin: 0 0 1.5rem 0;
 }
 
-.create-first-post-btn {
+.create-first-shot-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -276,7 +276,7 @@
   transition: all 0.3s ease;
 }
 
-.create-first-post-btn:hover {
+.create-first-shot-btn:hover {
   background: var(--color-primary-hover);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(18, 58, 192, 0.3);
@@ -308,7 +308,7 @@
     flex-wrap: wrap;
   }
 
-  .posts-grid {
+  .shots-grid {
     grid-template-columns: 1fr;
   }
 
@@ -318,7 +318,7 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .posts-grid {
+  .shots-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -332,7 +332,7 @@
     max-width: 1400px;
   }
 
-  .posts-grid {
+  .shots-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -493,7 +493,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.posts-section {
+.shots-section {
   background: var(--color-white);
   border: 1px solid var(--color-gray-border);
   border-radius: 12px;
@@ -568,11 +568,11 @@
     text-align: left;
   }
 
-  .posts-section {
+  .shots-section {
     padding: 1.5rem;
   }
 
-  .posts-grid {
+  .shots-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
@@ -581,13 +581,13 @@
     font-size: 1.5rem;
   }
 
-  .post-overlay-actions {
+  .shot-overlay-actions {
     flex-direction: row;
     gap: 0.5rem;
   }
 
-  .view-post-btn,
-  .edit-post-btn {
+  .view-shot-btn,
+  .edit-shot-btn {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
   }

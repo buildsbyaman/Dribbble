@@ -11,9 +11,9 @@
       </label>
 
       <div class="mobile-nav-menu">
-        <a href="/post" class="nav-link">Explore</a>
-        <a href="/post" class="nav-link">Hire a Designer</a>
-        <a href="/post/new" class="nav-link">Publish a Post</a>
+        <a href="/shot" class="nav-link">Explore</a>
+        <a href="/shot" class="nav-link">Hire a Designer</a>
+        <a href="/shot/new" class="nav-link">Publish a Shot</a>
         <a href="/privacy" class="nav-link">Privacy</a>
         <% if(!currUser) { %>
         <a href="/user/signup" class="btn btn-signup">Sign up</a>
@@ -29,15 +29,15 @@
       </div>
 
       <div class="logo-container">
-        <a href="/post" class="logo-link">
+        <a href="/shot" class="logo-link">
           <img class="logo-image" src="/images/Dribbble.png" alt="Dribbble" />
         </a>
       </div>
 
       <div class="desktop-nav-menu">
-        <a href="/post" class="nav-link">Explore</a>
+        <a href="/shot" class="nav-link">Explore</a>
         <a href="#" class="nav-link">Hire a Designer</a>
-        <a href="/post/new" class="nav-link">Publish a Post</a>
+        <a href="/shot/new" class="nav-link">Publish a Shot</a>
         <a href="/privacy" class="nav-link">Privacy</a>
       </div>
     </div>
@@ -56,7 +56,7 @@
       <div class="user-info">
         <span class="welcome-text"
           >Welcome,
-          <a href="/user" class="username-link"
+          <a href="/user/<%= currUser._id %>" class="username-link"
             ><%= currUser.username %>!</a
           ></span
         >

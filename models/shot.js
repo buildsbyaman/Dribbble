@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const postSchema = new mongoose.Schema(
+const shotSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -36,6 +36,6 @@ const postSchema = new mongoose.Schema(
   }
 );
 
-const Post = mongoose.model("Post", postSchema);
+const Shot = mongoose.model("Shot", shotSchema);
 
-module.exports = Post;
+module.exports = Shot;

@@ -1,29 +1,29 @@
-const Post = require("../models/post.js");
+const Shot = require("../models/shot.js");
 const User = require("../models/user.js");
 
 module.exports.hearts = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const post = await Post.findById(id);
+    const shot = await Shot.findById(id);
     const user = await User.findById(res.locals.currUser._id);
 
-    if (!post) {
-      return res.status(404).json({ error: "Post not found" });
+    if (!shot) {
+      return res.status(404).json({ error: "Shot not found" });
     }
 
-    const hasHearted = user.postsHearted.includes(id);
+    const hasHearted = user.shotsHearted.includes(id);
 
     if (hasHearted) {
-      post.hearts = Math.max(0, post.hearts - 1);
-      user.postsHearted.pull(id);
+      shot.hearts = Math.max(0, shot.hearts - 1);
+      user.shotsHearted.pull(id);
     } else {
-      post.hearts += 1;
-      user.postsHearted.push(id);
+      shot.hearts += 1;
+      user.shotsHearted.push(id);
     }
 
-    await Promise.all([post.save(), user.save()]);
-    res.json({ hearts: post.hearts, isHearted: !hasHearted });
+    await Promise.all([shot.save(), user.save()]);
+    res.json({ hearts: shot.hearts, isHearted: !hasHearted });
   } catch (error) {
     res.status(500).json({ error: "Failed to update hearts" });
   }
@@ -33,25 +33,25 @@ module.exports.likes = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const post = await Post.findById(id);
+    const shot = await Shot.findById(id);
     const user = await User.findById(res.locals.currUser._id);
 
-    if (!post) {
-      return res.status(404).json({ error: "Post not found" });
+    if (!shot) {
+      return res.status(404).json({ error: "Shot not found" });
     }
 
-    const hasLiked = user.postsLiked.includes(id);
+    const hasLiked = user.shotsLiked.includes(id);
 
     if (hasLiked) {
-      post.likes = Math.max(0, post.likes - 1);
-      user.postsLiked.pull(id);
+      shot.likes = Math.max(0, shot.likes - 1);
+      user.shotsLiked.pull(id);
     } else {
-      post.likes += 1;
-      user.postsLiked.push(id);
+      shot.likes += 1;
+      user.shotsLiked.push(id);
     }
 
-    await Promise.all([post.save(), user.save()]);
-    res.json({ likes: post.likes, isLiked: !hasLiked });
+    await Promise.all([shot.save(), user.save()]);
+    res.json({ likes: shot.likes, isLiked: !hasLiked });
   } catch (error) {
     res.status(500).json({ error: "Failed to update likes" });
   }

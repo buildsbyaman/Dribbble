@@ -193,6 +193,16 @@
   background: var(--color-white);
 }
 
+.author-name a {
+  color: var(--color-primary) !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.author-name a:hover {
+  text-decoration: underline;
+  color: var(--color-primary-hover) !important;
+}
+
 .gallery-item:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
@@ -225,11 +235,11 @@
   margin-bottom: 0.75rem;
 }
 
-.post-info {
+.shot-info {
   flex: 1;
 }
 
-.post-title {
+.shot-title {
   font-family: "Source Serif 4", Georgia, serif;
   font-size: 1rem;
   font-weight: 600;
@@ -238,7 +248,7 @@
   line-height: 1.3;
 }
 
-.post-author {
+.shot-author {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -274,7 +284,7 @@
   font-weight: 600;
 }
 
-.post-actions {
+.shot-actions {
   display: flex;
   align-items: center;
   gap: 0.375rem;

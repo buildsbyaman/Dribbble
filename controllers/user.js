@@ -1,5 +1,5 @@
 const User = require("../models/user.js");
-const Post = require("../models/post.js");
+const Shot = require("../models/shot.js");
 
 module.exports.signupShow = (req, res) => {
   res.render("users/signup.ejs", {
@@ -27,16 +27,34 @@ module.exports.signup = async (req, res) => {
   try {
     const { username, email, password } = req.body.user;
     const trimmedUsername = username.trim().toLowerCase();
-    const trimmedEmail = email.trim();
+    const trimmedEmail = email.trim().toLowerCase();
 
     if (!trimmedUsername || !trimmedEmail || !password) {
       req.flash("failure", "All fields are required.");
       return res.redirect("/user/signup");
     }
 
+    // Additional validation beyond Joi schema
+    if (trimmedUsername.length < 3 || trimmedUsername.length > 20) {
+      req.flash("failure", "Username must be between 3 and 20 characters.");
+      return res.redirect("/user/signup");
+    }
+
+    if (password.length < 6) {
+      req.flash("failure", "Password must be at least 6 characters long.");
+      return res.redirect("/user/signup");
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      req.flash("failure", "Please enter a valid email address.");
+      return res.redirect("/user/signup");
+    }
+
     const newUser = new User({
       username: trimmedUsername,
-      email: trimmedEmail.toLowerCase(),
+      email: trimmedEmail,
     });
     const registeredUser = await User.register(newUser, password);
 
@@ -49,7 +67,7 @@ module.exports.signup = async (req, res) => {
         return res.redirect("/user/signup");
       } else {
         req.flash("success", "Welcome to Dribbble!");
-        res.redirect("/post");
+        res.redirect("/shot");
       }
     });
   } catch (error) {
@@ -60,17 +78,37 @@ module.exports.signup = async (req, res) => {
 
 module.exports.login = (req, res) => {
   req.flash("success", "Welcome back!");
-  res.redirect("/post");
+  res.redirect("/shot");
 };
 
 module.exports.profileShow = async (req, res) => {
   try {
-    const userPosts = await Post.find({ author: req.user._id })
+    const { id } = req.params;
+    
+    // Validate ObjectId format to prevent injection
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      req.flash("failure", "Invalid user ID format!");
+      return res.redirect("/shot");
+    }
+    
+    const profileOwner = await User.findById(id);
+
+    if (!profileOwner) {
+      req.flash("failure", "User not found!");
+      return res.redirect("/shot");
+    }
+
+    const userShots = await Shot.find({ author: id })
       .populate("author", "username")
       .sort({ createdAt: -1 });
 
-    const userHearts = req.user.postsHearted || [];
-    const userLikes = req.user.postsLiked || [];
+    if (!res.locals.currUser || res.locals.currUser._id.toString() !== profileOwner._id.toString()) {
+      profileOwner.email = null;
+      profileOwner.totalContributions = null;
+    }
+
+    const userHearts = profileOwner.shotsHearted || [];
+    const userLikes = profileOwner.shotsLiked || [];
 
     res.render("users/show.ejs", {
       cssFiles: [
@@ -79,13 +117,14 @@ module.exports.profileShow = async (req, res) => {
         "/css/footer.css",
         "/css/user-profile.css",
       ],
-      userPosts,
+      profileOwner,
+      userShots,
       userHearts,
       userLikes,
     });
   } catch (error) {
-    req.flash("failure", "Unable to load user page.");
-    res.redirect("/post");
+    req.flash("failure", error.message);
+    res.redirect("/shot");
   }
 };
 
@@ -103,24 +142,51 @@ module.exports.editShow = async (req, res) => {
 module.exports.edit = async (req, res) => {
   try {
     const { username, email, age } = req.body.user;
+    
+    // Input validation and sanitization
+    if (!username || !email) {
+      req.flash("failure", "Username and email are required.");
+      return res.redirect("/user/edit");
+    }
+    
     const newUsername = username.trim().toLowerCase();
+    const newEmail = email.trim().toLowerCase();
+    
+    // Validate username format
+    if (newUsername.length < 3 || newUsername.length > 20) {
+      req.flash("failure", "Username must be between 3 and 20 characters.");
+      return res.redirect("/user/edit");
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newEmail)) {
+      req.flash("failure", "Please enter a valid email address.");
+      return res.redirect("/user/edit");
+    }
     if (newUsername !== req.user.username) {
-      const existingUser = await User.findOne({ username: username });
+      const existingUser = await User.findOne({ 
+        username: newUsername,
+        _id: { $ne: req.user._id } // Exclude current user
+      });
       if (existingUser) {
         req.flash("failure", "Username is already taken.");
         return res.redirect("/user/edit");
       }
     }
 
-    if (email !== req.user.email) {
-      const existingEmail = await User.findOne({ email: email });
+    if (newEmail !== req.user.email) {
+      const existingEmail = await User.findOne({ 
+        email: newEmail,
+        _id: { $ne: req.user._id } // Exclude current user
+      });
       if (existingEmail) {
         req.flash("failure", "Email is already registered.");
         return res.redirect("/user/edit");
       }
     }
 
-    const updateData = { username, email };
+    const updateData = { username: newUsername, email: newEmail };
     if (age && age.trim() !== "") {
       const parsedAge = parseInt(age);
       if (isNaN(parsedAge) || parsedAge < 1 || parsedAge > 150) {
@@ -147,7 +213,7 @@ module.exports.delete = async (req, res) => {
         console.error("Logout error after deletion:", error);
       }
       req.flash("success", "Your account has been successfully deleted.");
-      res.redirect("/post");
+      res.redirect("/shot");
     });
   } catch (error) {
     req.flash("failure", "Unable to delete account. Please try again.");
@@ -159,10 +225,10 @@ module.exports.logout = (req, res) => {
   req.logout((error) => {
     if (error) {
       req.flash("failure", "Unable to Logout!");
-      res.redirect("/post");
+      res.redirect("/shot");
     } else {
       req.flash("success", "Logged out successfully!");
-      res.redirect("/post");
+      res.redirect("/shot");
     }
   });
 };

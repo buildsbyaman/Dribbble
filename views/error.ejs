@@ -7,21 +7,19 @@
       <div class="error-illustration">
         <div class="error-code"><%= statusCode || '500' %></div>
       </div>
-
       <h1 class="error-title">
         <% if (statusCode === 404) { %> Page Not Found <% } else if (statusCode
         === 500) { %> Server Error <% } else { %> Something Went Wrong <% } %>
       </h1>
-
       <p class="error-subtitle">
-        <%= message || 'The page you are looking for does not exist.' %>
+        <%= message || 'An unexpected error occurred' %>
       </p>
     </div>
 
     <!-- Error Actions -->
     <div class="error-actions">
       <div class="error-buttons">
-        <a href="/post" class="btn btn-primary error-btn">
+        <a href="/shot" class="btn btn-primary error-btn">
           <i class="fas fa-home btn-icon"></i>
           Go Home
         </a>
@@ -36,9 +34,9 @@
     <div class="error-help">
       <p class="help-text">You might want to try:</p>
       <div class="help-links">
-        <a href="/post" class="help-link">
+        <a href="/shot" class="help-link">
           <i class="fas fa-images"></i>
-          Browse Posts
+          Browse Shots
         </a>
         <a href="/user/signup" class="help-link">
           <i class="fas fa-user-plus"></i>

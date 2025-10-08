@@ -30,8 +30,6 @@ router.post(
   userController.login
 );
 
-router.get("/", isLoggedIn, userController.profileShow);
-
 router.get("/edit", isLoggedIn, userController.editShow);
 
 router.put("/", isLoggedIn, userController.edit);
@@ -39,10 +37,12 @@ router.put("/", isLoggedIn, userController.edit);
 router.delete("/", isLoggedIn, userController.delete);
 
 router.post("/login-required", (req, res) => {
-  req.flash("failure", "Please log in to like posts!");
+  req.flash("failure", "Please log in to like shots!");
   res.json({ success: true });
 });
 
 router.get("/logout", isLoggedIn, userController.logout);
+
+router.get("/:id", userController.profileShow);
 
 module.exports = router;

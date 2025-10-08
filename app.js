@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config({ quiet: true });
-const postRouter = require("./routes/post.js");
+const shotRouter = require("./routes/shot.js");
 const userRouter = require("./routes/user.js");
 const ejsEngine = require("ejs-mate");
 const path = require("path");
@@ -62,7 +62,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.redirect("/post");
+  res.redirect("/shot");
 });
 
 app.get("/privacy", (req, res) => {
@@ -77,7 +77,7 @@ app.get("/privacy", (req, res) => {
 });
 
 app.use("/user", userRouter);
-app.use("/post", postRouter);
+app.use("/shot", shotRouter);
 
 app.use("*", (req, res, next) => {
   next(new CustomError(404, "The page you are looking for doesn't exist!"));

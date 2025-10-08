@@ -10,7 +10,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 module.exports.isNotLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     req.flash("success", "Already LoggedIn!");
-    res.redirect("/post");
+    res.redirect("/shot");
   } else {
     next();
   }
