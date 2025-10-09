@@ -5,9 +5,9 @@
     <div class="user-header">
       <div class="user-avatar">
         <div class="avatar-circle">
-          <span class="avatar-initial"
-            ><%= profileOwner.username.charAt(0).toUpperCase() %></span
-          >
+          <span class="avatar-initial">
+            <%= profileOwner.username.charAt(0).toUpperCase() %>
+          </span>
         </div>
       </div>
 
@@ -15,59 +15,57 @@
         <h1 class="user-username">@<%= profileOwner.username %></h1>
       </div>
 
-      <% if(currUser && profileOwner._id == currUser.id) { %>
-      <div class="user-actions">
-        <a href="/user/edit" class="btn btn-edit user-edit-btn">
-          <svg class="edit-icon" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-            />
-          </svg>
-          Edit Profile
-        </a>
-      </div>
+      <% if (currUser && profileOwner._id == currUser.id) { %>
+        <div class="user-actions">
+          <a href="/user/edit" class="btn btn-edit user-edit-btn">
+            <svg class="edit-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+              />
+            </svg>
+            Edit Profile
+          </a>
+        </div>
       <% } %>
     </div>
 
-    <% if(currUser && profileOwner._id == currUser.id) { %>
-    <div class="user-details">
-      <div class="detail-section">
-        <h2 class="section-title">Account Information</h2>
-        <div class="detail-grid">
-          <div class="detail-item">
-            <span class="detail-label">Username:</span>
-            <span class="detail-value">@<%= profileOwner.username %></span>
+    <% if (currUser && profileOwner._id == currUser.id) { %>
+      <div class="user-details">
+        <div class="detail-section">
+          <h2 class="section-title">Account Information</h2>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="detail-label">Username:</span>
+              <span class="detail-value">@<%= profileOwner.username %></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Email:</span>
+              <span class="detail-value"><%= profileOwner.email %></span>
+            </div>
+            <% if (profileOwner.age) { %>
+              <div class="detail-item">
+                <span class="detail-label">Age:</span>
+                <span class="detail-value"><%= profileOwner.age %> years old</span>
+              </div>
+            <% } %>
           </div>
-          <div class="detail-item">
-            <span class="detail-label">Email:</span>
-            <span class="detail-value"><%= profileOwner.email %></span>
+        </div>
+
+        <div class="detail-section">
+          <h2 class="section-title">Activity Summary</h2>
+          <div class="activity-summary">
+            <p class="activity-text">
+              <strong>You</strong> have contributed
+              <strong><%= userShots.length %></strong> shots to the Dribbble community.
+            </p>
+            <% if (userShots.length === 0) { %>
+              <p class="activity-empty">
+                No shots uploaded yet. Start sharing your creative work!
+              </p>
+            <% } %>
           </div>
-          <% if (profileOwner.age) { %>
-          <div class="detail-item">
-            <span class="detail-label">Age:</span>
-            <span class="detail-value"><%= profileOwner.age %> years old</span>
-          </div>
-          <% } %>
         </div>
       </div>
-
-      <div class="detail-section">
-        <h2 class="section-title">Activity Summary</h2>
-        <div class="activity-summary">
-          <p class="activity-text">
-            <strong>You</strong> have contributed
-            <strong><%= userShots.length %></strong> shots to the Dribbble
-            community.
-          </p>
-          <% if (userShots.length === 0) { %>
-          <p class="activity-empty">
-            No shots uploaded yet. Start sharing your creative work!
-          </p>
-          <% } %>
-        </div>
-      </div>
-    </div>
-
     <% } %>
 
     <div class="shots-section">
@@ -77,62 +75,115 @@
       </h2>
 
       <% if (userShots.length > 0) { %>
-      <div class="shots-grid">
-        <% userShots.forEach(function(shot) { %>
-        <div class="shot-card">
-          <a href="/shot/<%= shot.id %>">
-            <div class="shot-image-wrapper">
-              <img
-                class="shot-image"
-                src="<%= shot.image %>"
-                alt="<%= shot.title %>"
-              />
-            </div>
-          </a>
-
-          <div class="shot-content">
-            <h3 class="shot-title"><%= shot.title %></h3>
-            <% if (shot.description && shot.description.length > 0) { %>
-            <p class="shot-description">
-              <%= shot.description.length > 100 ? shot.description.substring(0,
-              100) + '...' : shot.description %>
-            </p>
-            <% } %>
-
-            <div class="shot-meta">
-              <div class="shot-date">
-                <i class="fa-regular fa-calendar"></i>
-                <%= new Date(shot.createdAt).toLocaleDateString() %>
-              </div>
-
-              <div class="shot-stats">
-                <div class="shot-stat">
-                  <i class="fa-solid fa-heart" style="color: #ef4444"></i>
-                  <span><%= shot.hearts || 0 %></span>
+        <div class="shots-grid">
+          <% userShots.forEach(function(shot) { %>
+            <div class="shot-card">
+              <a href="/shot/<%= shot.id %>">
+                <div class="shot-image-wrapper">
+                  <img
+                    class="shot-image"
+                    src="<%= shot.image %>"
+                    alt="<%= shot.title %>"
+                  />
                 </div>
-                <div class="shot-stat">
-                  <i class="fa-solid fa-thumbs-up" style="color: #123ac0"></i>
-                  <span><%= shot.likes || 0 %></span>
+              </a>
+
+              <div class="shot-content">
+                <h3 class="shot-title"><%= shot.title %></h3>
+                <% if (shot.description && shot.description.length > 0) { %>
+                  <p class="shot-description">
+                    <%= shot.description.length > 100
+                      ? shot.description.substring(0, 100) + '...'
+                      : shot.description %>
+                  </p>
+                <% } %>
+
+                <div class="shot-meta">
+                  <div class="shot-date">
+                    <i class="fa-regular fa-calendar"></i>
+                    <%= new Date(shot.createdAt).toLocaleDateString() %>
+                  </div>
+                  <div class="shot-stats">
+                    <div class="shot-stat">
+                      <i class="fa-solid fa-eye" style="color: #6b7280"></i>
+                      <span><%= shot.views || 0 %></span>
+                    </div>
+                    <div class="shot-stat">
+                      <i class="fa-solid fa-thumbs-up" style="color: #123ac0"></i>
+                      <span><%= shot.likes || 0 %></span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          <div class="empty-state-icon">
+            <i class="fa-regular fa-images"></i>
+          </div>
+          <h3 class="empty-state-title">No Shots yet</h3>
+
+          <% if (currUser && profileOwner._id == currUser._id) { %>
+            <a href="/shot/new" class="create-first-shot-btn">
+              <i class="fa-solid fa-plus"></i>
+              Create your first shot
+            </a>
+          <% } %>
+        </div>
+      <% } %>
+
+      <% if (currUser && profileOwner._id == currUser._id && profileOwner.shotsLiked.length > 0) { %>
+        <div class="shots-section">
+          <h2 class="section-title">
+            <i class="fa-solid fa-heart"></i>
+            Liked Shots
+          </h2>
+          <div class="shots-grid">
+            <% profileOwner.shotsLiked.forEach(function(shot) { %>
+              <div class="shot-card">
+                <a href="/shot/<%= shot.id %>">
+                  <div class="shot-image-wrapper">
+                    <img
+                      class="shot-image"
+                      src="<%= shot.image %>"
+                      alt="<%= shot.title %>"
+                    />
+                  </div>
+                </a>
+
+                <div class="shot-content">
+                  <h3 class="shot-title"><%= shot.title %></h3>
+                  <% if (shot.description && shot.description.length > 0) { %>
+                    <p class="shot-description">
+                      <%= shot.description.length > 100
+                        ? shot.description.substring(0, 100) + '...'
+                        : shot.description %>
+                    </p>
+                  <% } %>
+                  <div class="shot-meta">
+                    <div class="shot-date">
+                      <i class="fa-regular fa-calendar"></i>
+                      <%= new Date(shot.createdAt).toLocaleDateString() %>
+                    </div>
+                    <div class="shot-stats">
+                      <div class="shot-stat">
+                        <i class="fa-solid fa-eye" style="color: #6b7280"></i>
+                        <span><%= shot.views || 0 %></span>
+                      </div>
+                      <div class="shot-stat">
+                        <i class="fa-solid fa-thumbs-up" style="color: #123ac0"></i>
+                        <span><%= shot.likes || 0 %></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
           </div>
         </div>
-        <% }) %>
-      </div>
-      <% } else { %>
-      <div class="empty-state">
-        <div class="empty-state-icon">
-          <i class="fa-regular fa-images"></i>
-        </div>
-        <h3 class="empty-state-title">No Shots yet</h3>
-        <% if(currUser && profileOwner._id == currUser._id) { %>
-        <a href="/shot/new" class="create-first-shot-btn">
-          <i class="fa-solid fa-plus"></i>
-          Create your first shot
-        </a>
-      </div>
-      <% }} %>
+      <% } %>
     </div>
   </div>
 </main>

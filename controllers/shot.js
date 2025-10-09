@@ -13,21 +13,18 @@ module.exports.indexShow = async (req, res, next) => {
     const shotData = await Shot.find().populate("author");
 
     let userLikes = [];
-    let userHearts = [];
 
     if (req.user) {
       const User = require("../models/user.js");
       const user = await User.findById(req.user._id);
       if (user) {
         userLikes = user.shotsLiked.map((id) => id.toString());
-        userHearts = user.shotsHearted.map((id) => id.toString());
       }
     }
 
     res.render("shots/index.ejs", {
       shotData,
       userLikes,
-      userHearts,
       cssFiles: [
         "/css/common.css",
         "/css/header.css",
@@ -55,35 +52,35 @@ module.exports.newShow = (req, res) => {
 module.exports.individualShow = async (req, res) => {
   const { id } = req.params;
 
-  // Validate ObjectId format
   if (!id.match(/^[0-9a-fA-F]{24}$/)) {
     req.flash("failure", "Invalid shot ID format!");
     return res.redirect("/shot");
   }
 
   try {
-    const shot = await Shot.findById(id).populate("author");
+    const shot = await Shot.findByIdAndUpdate(
+      id,
+      { $inc: { views: 1 } },
+      { new: true }
+    ).populate("author");
+
     if (!shot) {
       req.flash("failure", "No shot found with this ID!");
       return res.redirect("/shot");
     }
 
     let isLiked = false;
-    let isHearted = false;
-
     if (req.user) {
       const User = require("../models/user.js");
       const user = await User.findById(req.user._id);
       if (user) {
         isLiked = user.shotsLiked.includes(id);
-        isHearted = user.shotsHearted.includes(id);
       }
     }
 
     res.render("shots/show.ejs", {
       shot,
       isLiked,
-      isHearted,
       cssFiles: [
         "/css/common.css",
         "/css/header.css",

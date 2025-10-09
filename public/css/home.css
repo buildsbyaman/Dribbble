@@ -326,12 +326,12 @@
   transform: translateY(-1px);
 }
 
-.heart-badge:hover {
-  background-color: rgba(239, 68, 68, 0.1);
+.views-badge {
+  background-color: rgba(107, 114, 128, 0.1);
 }
 
-.heart-badge.liked {
-  background-color: rgba(239, 68, 68, 0.1);
+.views-badge:hover {
+  background-color: rgba(107, 114, 128, 0.15);
 }
 
 .thumbs-badge:hover {
@@ -342,14 +342,14 @@
   background-color: rgba(18, 58, 192, 0.1);
 }
 
-.stat-icon-hearts,
+.stat-icon-views,
 .stat-icon-thumbs {
   font-size: 1rem;
   color: var(--color-text-gray);
   transition: all 0.2s ease;
 }
 
-.stat-icon-hearts:hover,
+.stat-icon-views,
 .stat-icon-thumbs:hover {
   transform: scale(1.1);
 }

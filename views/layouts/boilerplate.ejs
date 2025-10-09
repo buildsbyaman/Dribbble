@@ -102,43 +102,6 @@
           );
         });
 
-        window.toggleHeartHome = async function (shotId, element) {
-          try {
-            const response = await fetch(`/shot/${shotId}/stat/hearts`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({}),
-            });
-
-            if (response.ok) {
-              const data = await response.json();
-              const icon = element.querySelector(".stat-icon-hearts");
-              const count = element.querySelector(".stat-number");
-
-              if (data.isHearted) {
-                icon.classList.remove("fa-regular");
-                icon.classList.add("fa-solid");
-                icon.style.color = "#ef4444";
-                element.classList.add("liked");
-              } else {
-                icon.classList.remove("fa-solid");
-                icon.classList.add("fa-regular");
-                icon.style.color = "";
-                element.classList.remove("liked");
-              }
-
-              count.textContent = data.hearts;
-
-              element.style.transform = "scale(1.1)";
-              setTimeout(() => (element.style.transform = "scale(1)"), 150);
-            }
-          } catch (error) {
-            console.error("Error updating hearts:", error);
-          }
-        };
-
         window.toggleLikeHome = async function (shotId, element) {
           try {
             const response = await fetch(`/shot/${shotId}/stat/likes`, {

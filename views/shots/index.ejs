@@ -67,18 +67,15 @@
             </div>
 
             <div class="shot-actions">
+              <div class="stat-badge views-badge">
+                <i class="fa-solid fa-eye stat-icon-views"></i>
+                <span class="stat-number"><%= shot.views || 0 %></span>
+              </div>
+
               <% if (currUser) { %>
                 <% 
-                  const isHearted = userHearts.includes(shot._id.toString());
                   const isLiked = userLikes.includes(shot._id.toString());
                 %>
-
-                <div class="stat-badge heart-badge <%= isHearted ? 'liked' : '' %>" onclick="toggleHeartHome('<%= shot._id %>', this)">
-                  <i class="<%= isHearted ? 'fa-solid' : 'fa-regular' %> fa-heart stat-icon-hearts"
-                    <% if (isHearted) { %> style="color: #ef4444;" <% } %>>
-                  </i>
-                  <span class="stat-number"><%= shot.hearts || 0 %></span>
-                </div>
 
                 <div class="stat-badge thumbs-badge <%= isLiked ? 'liked' : '' %>" onclick="toggleLikeHome('<%= shot._id %>', this)">
                   <i class="<%= isLiked ? 'fa-solid' : 'fa-regular' %> fa-thumbs-up stat-icon-thumbs"
@@ -88,10 +85,6 @@
                 </div>
 
               <% } else { %>
-                <div class="stat-badge heart-badge" onclick="showLoginMessage()">
-                  <i class="fa-regular fa-heart stat-icon-hearts"></i>
-                  <span class="stat-number"><%= shot.hearts || 0 %></span>
-                </div>
                 <div class="stat-badge thumbs-badge" onclick="showLoginMessage()">
                   <i class="fa-regular fa-thumbs-up stat-icon-thumbs"></i>
                   <span class="stat-number"><%= shot.likes || 0 %></span>

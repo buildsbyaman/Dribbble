@@ -21,16 +21,13 @@
           <div class="title-area">
             <h1 class="showcase-title"><%= shot.title %></h1>
 
-            <% if (currUser) { %>
-              <div class="stat-badge-header">
-                <div class="stat-badge heart-badge <%= isHearted ? 'liked' : '' %>" onclick="toggleHeart(this)">
-                  <i class="<%= isHearted ? 'fa-solid' : 'fa-regular' %> fa-heart stat-icon-hearts"
-                     id="heartIcon"
-                     <% if (isHearted) { %> style="color:#ef4444;" <% } %>>
-                  </i>
-                  <span class="stat-number" id="heartCount"><%= shot.hearts || 0 %></span>
-                </div>
+            <div class="stat-badge-header">
+              <div class="stat-badge views-badge">
+                <i class="fa-solid fa-eye stat-icon-views"></i>
+                <span class="stat-number"><%= shot.views || 0 %></span>
+              </div>
 
+              <% if (currUser) { %>
                 <div class="stat-badge thumbs-badge <%= isLiked ? 'liked' : '' %>" onclick="toggleThumbs(this)">
                   <i class="<%= isLiked ? 'fa-solid' : 'fa-regular' %> fa-thumbs-up stat-icon-likes"
                      id="thumbsIcon"
@@ -38,19 +35,13 @@
                   </i>
                   <span class="stat-number" id="thumbsCount"><%= shot.likes || 0 %></span>
                 </div>
-              </div>
-            <% } else { %>
-              <div class="stat-badge-header">
-                <div class="stat-badge heart-badge" onclick="showLoginMessage()">
-                  <i class="fa-regular fa-heart stat-icon-hearts"></i>
-                  <span class="stat-number"><%= shot.hearts || 0 %></span>
-                </div>
+              <% } else { %>
                 <div class="stat-badge thumbs-badge" onclick="showLoginMessage()">
                   <i class="fa-regular fa-thumbs-up stat-icon-likes"></i>
                   <span class="stat-number"><%= shot.likes || 0 %></span>
                 </div>
-              </div>
-            <% } %>
+              <% } %>
+            </div>
           </div>
 
           <h1 class="author-name-mini">Shot By : <a href="/user/<%= shot.author.id %>"><%= shot.author.username %></a></h1>
@@ -99,42 +90,6 @@
 </div>
 
 <script>
-  window.toggleHeart = async function(element) {
-    const heartIcon = element.querySelector("#heartIcon");
-    const heartCount = element.querySelector("#heartCount");
-    const shotId = "<%= shot._id %>";
-
-    try {
-      const response = await fetch(`/shot/${shotId}/stat/hearts`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({})
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-
-        if (data.isHearted) {
-          heartIcon.classList.remove("fa-regular");
-          heartIcon.classList.add("fa-solid");
-          heartIcon.style.color = "#ef4444";
-          element.classList.add("liked");
-        } else {
-          heartIcon.classList.remove("fa-solid");
-          heartIcon.classList.add("fa-regular");
-          heartIcon.style.color = "";
-          element.classList.remove("liked");
-        }
-
-        heartCount.textContent = data.hearts;
-        heartIcon.style.transform = "scale(1.2)";
-        setTimeout(() => heartIcon.style.transform = "scale(1)", 150);
-      }
-    } catch (error) {
-      console.error("Error updating hearts:", error);
-    }
-  };
-
   window.toggleThumbs = async function(element) {
     const thumbsIcon = element.querySelector("#thumbsIcon");
     const thumbsCount = element.querySelector("#thumbsCount");

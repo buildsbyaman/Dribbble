@@ -14,10 +14,6 @@ const userSchema = new mongoose.Schema({
     type: [mongoose.Schema.Types.ObjectId],
     ref: "Shot",
   },
-  shotsHearted: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: "Shot",
-  },
 });
 
 userSchema.plugin(passportLocalMongoose);

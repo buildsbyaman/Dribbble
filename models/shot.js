@@ -13,7 +13,7 @@ const shotSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    hearts: {
+    views: {
       type: Number,
       default: 0,
     },

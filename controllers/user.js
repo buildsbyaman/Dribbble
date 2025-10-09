@@ -34,7 +34,6 @@ module.exports.signup = async (req, res) => {
       return res.redirect("/user/signup");
     }
 
-    // Additional validation beyond Joi schema
     if (trimmedUsername.length < 3 || trimmedUsername.length > 20) {
       req.flash("failure", "Username must be between 3 and 20 characters.");
       return res.redirect("/user/signup");
@@ -44,8 +43,6 @@ module.exports.signup = async (req, res) => {
       req.flash("failure", "Password must be at least 6 characters long.");
       return res.redirect("/user/signup");
     }
-
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(trimmedEmail)) {
       req.flash("failure", "Please enter a valid email address.");
@@ -84,14 +81,13 @@ module.exports.login = (req, res) => {
 module.exports.profileShow = async (req, res) => {
   try {
     const { id } = req.params;
-    
-    // Validate ObjectId format to prevent injection
+
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {
       req.flash("failure", "Invalid user ID format!");
       return res.redirect("/shot");
     }
-    
-    const profileOwner = await User.findById(id);
+
+    const profileOwner = await User.findById(id).populate("shotsLiked");
 
     if (!profileOwner) {
       req.flash("failure", "User not found!");
@@ -102,12 +98,14 @@ module.exports.profileShow = async (req, res) => {
       .populate("author", "username")
       .sort({ createdAt: -1 });
 
-    if (!res.locals.currUser || res.locals.currUser._id.toString() !== profileOwner._id.toString()) {
+    if (
+      !res.locals.currUser ||
+      res.locals.currUser._id.toString() !== profileOwner._id.toString()
+    ) {
       profileOwner.email = null;
       profileOwner.totalContributions = null;
     }
 
-    const userHearts = profileOwner.shotsHearted || [];
     const userLikes = profileOwner.shotsLiked || [];
 
     res.render("users/show.ejs", {
@@ -119,7 +117,6 @@ module.exports.profileShow = async (req, res) => {
       ],
       profileOwner,
       userShots,
-      userHearts,
       userLikes,
     });
   } catch (error) {
@@ -142,32 +139,28 @@ module.exports.editShow = async (req, res) => {
 module.exports.edit = async (req, res) => {
   try {
     const { username, email, age } = req.body.user;
-    
-    // Input validation and sanitization
+
     if (!username || !email) {
       req.flash("failure", "Username and email are required.");
       return res.redirect("/user/edit");
     }
-    
+
     const newUsername = username.trim().toLowerCase();
     const newEmail = email.trim().toLowerCase();
-    
-    // Validate username format
+
     if (newUsername.length < 3 || newUsername.length > 20) {
       req.flash("failure", "Username must be between 3 and 20 characters.");
       return res.redirect("/user/edit");
     }
-    
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(newEmail)) {
       req.flash("failure", "Please enter a valid email address.");
       return res.redirect("/user/edit");
     }
     if (newUsername !== req.user.username) {
-      const existingUser = await User.findOne({ 
+      const existingUser = await User.findOne({
         username: newUsername,
-        _id: { $ne: req.user._id } // Exclude current user
+        _id: { $ne: req.user._id },
       });
       if (existingUser) {
         req.flash("failure", "Username is already taken.");
@@ -176,9 +169,9 @@ module.exports.edit = async (req, res) => {
     }
 
     if (newEmail !== req.user.email) {
-      const existingEmail = await User.findOne({ 
+      const existingEmail = await User.findOne({
         email: newEmail,
-        _id: { $ne: req.user._id } // Exclude current user
+        _id: { $ne: req.user._id },
       });
       if (existingEmail) {
         req.flash("failure", "Email is already registered.");

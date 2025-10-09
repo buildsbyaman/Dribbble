@@ -885,28 +885,15 @@
   font-size: 1.8rem;
 }
 
-.heart-badge {
-  cursor: pointer;
-  transition: all 0.3s ease;
+.views-badge {
   border-radius: 8px;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: rgba(107, 114, 128, 0.1);
 }
 
-.heart-badge:hover {
-  background-color: rgba(239, 68, 68, 0.1);
-  transform: translateY(-2px);
-}
-
-.heart-badge.liked {
-  background-color: rgba(239, 68, 68, 0.1);
-}
-
-.stat-icon-hearts {
-  transition: all 0.2s ease;
-}
-
-.stat-icon-hearts:hover {
-  transform: scale(1.1);
+.stat-icon-views {
+  font-size: 1.6rem;
+  color: #777d88;
 }
 
 .thumbs-badge {
