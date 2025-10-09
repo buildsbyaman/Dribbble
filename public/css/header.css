@@ -195,9 +195,3 @@
     display: none;
   }
 }
-
-@media (min-width: 1200px) {
-  .main-navigation {
-    padding: 0.6rem 2.3rem;
-  }
-}
