@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config({ quiet: true });
 const shotRouter = require("./routes/shot.js");
 const userRouter = require("./routes/user.js");
+const reviewRouter = require("./routes/review.js");
 const ejsEngine = require("ejs-mate");
 const path = require("path");
 const app = express();
@@ -21,10 +22,13 @@ const sessionOptions = {
   secret:
     process.env.SESSION_SECRET || "fallback-secret-key-change-in-production",
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false },
-  maxAge: Date.now() + 1000 * 60 * 60 * 24 * 7,
-  httpOnly: true,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true,
+    sameSite: "strict",
+  },
 };
 
 app.set("view engine", "ejs");
@@ -82,6 +86,7 @@ app.get("/privacy", (req, res) => {
 
 app.use("/user", userRouter);
 app.use("/shot", shotRouter);
+app.use("/review", reviewRouter);
 
 app.use("*", (req, res, next) => {
   next(new CustomError(404, "The page you are looking for doesn't exist!"));

@@ -1,7 +1,7 @@
 const User = require("../models/user.js");
 const Shot = require("../models/shot.js");
 const crypto = require("crypto");
-const { sendOTPEmail } = require("../utilities/verficationEmail.js");
+const { sendOTPEmail } = require("../utilities/verificationEmail.js");
 
 const generateOTP = () => {
   return crypto.randomInt(100000, 999999).toString();
@@ -143,10 +143,10 @@ module.exports.verifyOTP = async (req, res) => {
       return res.redirect("/user/verify-otp");
     }
 
-    if (user.verificationAttempts > 10) {
+    if (user.verificationAttempts >= 5) {
       req.flash(
         "failure",
-        "Your account has been blocked because of multiple failed attempts! Please contact our customer support team!"
+        "Your account has been temporarily blocked due to multiple failed attempts. Please try again later or contact support."
       );
       return res.redirect("/shot");
     }

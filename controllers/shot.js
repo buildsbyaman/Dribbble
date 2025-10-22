@@ -62,7 +62,12 @@ module.exports.individualShow = async (req, res) => {
       id,
       { $inc: { views: 1 } },
       { new: true }
-    ).populate("author");
+    )
+      .populate("author")
+      .populate({
+        path: "reviews",
+        populate: { path: "owner" },
+      });
 
     if (!shot) {
       req.flash("failure", "No shot found with this ID!");

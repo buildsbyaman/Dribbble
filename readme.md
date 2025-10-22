@@ -6,22 +6,17 @@ A modern, full-stack web application inspired by Dribbble, built with Express.js
 
 ## ✨ Features
 
-### Core Functionality
-
-- 🔐 **User Authentication** - Secure signup, login, and logout
-- 📸 **Shot Management** - Create, edit, and delete creative shots
-- 🖼️ **Image Upload** - Cloudinary integration for optimized image storage
-- 👤 **User Profiles** - Personalized user pages and account management
+- 🔐 **User Authentication** - Secure signup/login with email verification
+- 📸 **Shot Management** - Create, edit, delete, and view creative shots
+- 💬 **Reviews & Ratings** - Rate and comment on shots (1-5 stars)
+- ❤️ **Like System** - Like/unlike shots with real-time updates
+- 📊 **Statistics** - View and like counters for shots
+- 🖼️ **Image Upload** - Cloudinary integration for optimized storage
+- 👤 **User Profiles** - Personal profiles showing user shots and liked content
+- 🔔 **Email Notifications** - OTP verification and password reset
 - 🏷️ **Tagging System** - Organize shots with custom tags
 - 📱 **Responsive Design** - Mobile-first, fully responsive interface
-
-### Technical Features
-
-- 🔒 **Secure Sessions** - Express-session with Passport.js authentication
-- 🛡️ **Input Validation** - Joi schema validation for data integrity
-- 🎯 **Error Handling** - Custom error pages and flash messaging
-- 🎨 **Modern UI/UX** - Clean, minimalist design with CSS variables
-- ⚡ **Performance** - Optimized CSS and efficient database queries
+- �️ **Security** - Input validation, session management, and CSRF protection
 
 ## 🚀 Quick Start
 
@@ -31,80 +26,45 @@ A modern, full-stack web application inspired by Dribbble, built with Express.js
 - **MongoDB** (local or MongoDB Atlas)
 - **Cloudinary Account** (for image uploads)
 
+### Installation
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Set up environment variables (see `.env.example`)
+4. Start development server: `npm app.js`
+
 ## 📁 Project Structure
 
 ```
 Dribbble/
 ├── 📁 controllers/      # Route controllers
-│   ├── shot.js             # Shot-related logic
-│   └── user.js             # User-related logic
+│   ├── review.js           # Review management
+│   ├── shot.js             # Shot CRUD operations
+│   ├── stat.js             # Statistics & likes
+│   └── user.js             # Authentication & profiles
 ├── 📁 models/           # Mongoose schemas
-│   ├── comment.js          # Comment model
+│   ├── review.js           # Review model
 │   ├── shot.js             # Shot model
 │   └── user.js             # User model
-├── 📁 public/           # Static assets
-│   ├── 📁 css/             # Stylesheets
-│   └── 📁 images/          # Static images
 ├── 📁 routes/           # Express routes
-│   ├── shot.js             # Shot routes
-│   └── user.js             # User routes
+│   ├── review.js           # Review endpoints
+│   ├── shot.js             # Shot endpoints
+│   ├── stat.js             # Statistics endpoints
+│   └── user.js             # User endpoints
 ├── 📁 utilities/        # Helper functions
-│   └── CustomError.js      # Custom error class
+│   ├── CustomError.js      # Error handling
+│   ├── cleanupUnverifiedUsers.js  # User cleanup job
+│   ├── verficationEmail.js # Email service
+│   └── wrapAsync.js        # Async wrapper
+├── 📁 public/css/       # Stylesheets
 ├── 📁 views/            # EJS templates
-│   ├── 📁 includes/        # Partial templates
-│   ├── 📁 layouts/         # Layout templates
-│   ├── 📁 shots/           # Shot templates
-│   └── 📁 users/           # User templates
-├── app.js               # Main application file
-├── middleware.js        # Custom middleware
-├── model.js             # Validation schemas
-└── package.json         # Dependencies
+├── app.js               # Main application
+├── middleware.js        # Auth middleware
+└── model.js            # Joi validation schemas
 ```
 
 ## 🛠️ Technology Stack
 
-### Backend
-
-- **Express.js**    -  Web application framework
-- **MongoDB**       -  NoSQL database
-- **Mongoose**      -  MongoDB object modeling
-- **Passport.js**   -  Authentication middleware
-- **Multer**        -  File upload handling
-- **Cloudinary**    -  Image storage and optimization
-
-### Frontend
-
-- **EJS** - Templating engine
-- **CSS3** - Modern styling with CSS variables
-- **Responsive Design** - Mobile-first approach
-
-### Development Tools
-
-- **Nodemon** - Auto-restart during development
-- **Joi** - Schema validation
-- **Method-Override** - HTTP method override
-
-### Cloudinary Setup
-
-1. Create a free account at [Cloudinary](https://cloudinary.com/)
-2. Get your cloud name, API key, and API secret from the dashboard
-3. Add them to your `.env` file
-
-## 🎨 Design System
-
-### Color Palette
-
-The application uses a modern, accessible color system:
-
-- **Primary**: `#05299e` (Deep Blue)
-- **Secondary**: `#64748b` (Slate Gray)
-- **Success**: `#166534` (Green)
-- **Error**: `#ef4444` (Red)
-- **Warning**: `#ea4c89` (Pink)
-
-## 🔒 Security Features
-
-- **Password Hashing** - Bcrypt via Passport Local Mongoose
-- **Session Management** - Secure session cookies
-- **Input Validation** - Server-side validation with Joi
-- **File Upload Security** - Restricted file types and size limits
+**Backend:** Express.js, MongoDB, Mongoose, Passport.js, Multer, Cloudinary, Nodemailer
+**Frontend:** EJS, CSS3 with CSS Variables, Responsive Design
+**Security:** Joi Validation, Express-Session, CSRF Protection, Rate Limiting

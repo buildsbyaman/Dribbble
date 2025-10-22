@@ -7,7 +7,13 @@ module.exports.userSchema = joi.object({
 });
 
 module.exports.shotSchema = joi.object({
-  title: joi.string().min(3).max(20).required(),
-  description: joi.string().min(10).max(5000).required(),
-  tags: joi.string().required().required(),
+  title: joi.string().min(3).max(100).required(),
+  description: joi.string().min(10).max(5000).allow('').optional(),
+  tags: joi.string().required(),
 });
+
+module.exports.reviewSchema = joi.object({
+  comment: joi.string().min(3).max(500).required(),
+  rating: joi.number().min(1).max(5).required(),
+});
+
