@@ -10,8 +10,6 @@ module.exports.views = async (req, res) => {
     if (!shot) {
       return res.status(404).json({ error: "Shot not found" });
     }
-
-    // For views, we don't need to track individual users, just increment
     shot.views += 1;
     await shot.save();
     
