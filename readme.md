@@ -1,4 +1,4 @@
-# 🎨 Dribbble Clone
+# Dribbble Clone
 
 A modern, full-stack web application inspired by Dribbble, built with Express.js, MongoDB, and EJS. Share your creative work, discover inspiring designs, and connect with a community of designers and artists.
 
@@ -108,5 +108,3 @@ The application uses a modern, accessible color system:
 - **Session Management** - Secure session cookies
 - **Input Validation** - Server-side validation with Joi
 - **File Upload Security** - Restricted file types and size limits
-- **XSS Protection** - EJS auto-escaping
-- **CSRF Protection** - Method override tokens

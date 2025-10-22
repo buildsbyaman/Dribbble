@@ -18,8 +18,11 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "Dribbble",
+    allowedFormats: ["jpg", "jpeg", "png", "webp"],
+    transformation: [{ width: 2000, height: 2000, crop: "limit" }]
   },
 });
+
 
 const shotSchemaValidatorForNew = (req, res, next) => {
   const { error } = shotSchema.validate(req.body.shot);

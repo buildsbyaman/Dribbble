@@ -23,6 +23,8 @@ const sessionOptions = {
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false },
+  maxAge: Date.now() + 1000 * 60 * 60 * 24 * 7,
+  httpOnly: true,
 };
 
 app.set("view engine", "ejs");
