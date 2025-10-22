@@ -27,20 +27,18 @@
         <div class="form-group">
           <input
             type="email"
-            name="email"
             placeholder="Enter your email address"
             class="form-input form-control"
             value="<%= email || '' %>"
             required
+            disabled
           />
-          <div class="invalid-feedback">
-            Please provide a valid email address.
-          </div>
+          <input type="hidden" name="email" value="<%= email || '' %>">
         </div>
 
         <div class="form-group">
           <input
-            type="text"
+            type="number"
             name="otp"
             placeholder="Enter 6-digit OTP"
             class="form-input form-control"
@@ -69,8 +67,8 @@
       <div class="auth-footer">
         <p class="auth-terms">
           Didn't receive the code?
-          <a href="/user/forgot" class="auth-link auth-link-primary"
-            >Resend OTP</a
+          <a href="/user/signup" class="auth-link auth-link-primary"
+            >Back to Signup</a
           >
         </p>
         <p class="auth-signin">

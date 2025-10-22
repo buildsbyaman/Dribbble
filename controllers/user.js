@@ -79,7 +79,14 @@ module.exports.forgotPassword = async (req, res) => {
 
     req.flash("success", "OTP has been sent to your email address.");
     req.session.resetEmail = trimmedEmail;
-    res.redirect("/user/verify-otp");
+    
+    req.session.save((err) => {
+      if (err) {
+        console.error("Session save error:", err);
+        return res.redirect("/user/forgot");
+      }
+      res.redirect("/user/verify-otp");
+    });
   } catch (error) {
     console.log(error);
     req.flash("failure", "Unable to process reset request. Please try again.");
@@ -88,7 +95,7 @@ module.exports.forgotPassword = async (req, res) => {
 };
 
 module.exports.verifyOTPShow = (req, res) => {
-  const email = req.session.resetEmail || "";
+  const email = req.session.signupEmail || req.session.resetEmail || "";
   res.render("users/verify-otp.ejs", {
     cssFiles: [
       "/css/common.css",
@@ -250,20 +257,6 @@ module.exports.signup = async (req, res) => {
     const trimmedUsername = username.trim().toLowerCase();
     const trimmedEmail = email.trim().toLowerCase();
 
-    if (!trimmedUsername || !trimmedEmail || !password) {
-      req.flash("failure", "All fields are required.");
-      return res.redirect("/user/signup");
-    }
-
-    if (trimmedUsername.length < 3 || trimmedUsername.length > 20) {
-      req.flash("failure", "Username must be between 3 and 20 characters.");
-      return res.redirect("/user/signup");
-    }
-
-    if (password.length < 6) {
-      req.flash("failure", "Password must be at least 6 characters long.");
-      return res.redirect("/user/signup");
-    }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(trimmedEmail)) {
       req.flash("failure", "Please enter a valid email address.");
@@ -287,9 +280,15 @@ module.exports.signup = async (req, res) => {
     await sendOTPEmail(trimmedEmail, otp);
 
     req.flash("success", "OTP has been sent to your email address.");
-    req.session.resetEmail = trimmedEmail;
-
-    res.redirect("/user/verify-otp");
+    req.session.signupEmail = trimmedEmail;
+    
+    req.session.save((err) => {
+      if (err) {
+        console.error("Session save error:", err);
+        return res.redirect("/user/signup");
+      }
+      res.redirect("/user/verify-otp");
+    });
   } catch (error) {
     req.flash("failure", error.message);
     res.redirect("/user/signup");

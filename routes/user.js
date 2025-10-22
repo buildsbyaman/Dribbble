@@ -9,7 +9,8 @@ const userController = require("../controllers/user.js");
 const validateUserSchema = (req, res, next) => {
   const { error } = userSchema.validate(req.body.user);
   if (error) {
-    next(new CustomError(400, error.message));
+    req.flash('failure', error.message);
+    res.redirect("/user/signup");
   } else {
     next();
   }
