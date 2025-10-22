@@ -170,6 +170,11 @@
   color: var(--color-black);
 }
 
+.grey {
+  background-color: var(--color-gray-border);
+  color: var(--color-black);
+}
+
 .gallery-section {
   max-width: 1200px;
   margin: 3rem auto;

@@ -16,11 +16,7 @@
 <section class="search-section">
   <div class="search-container">
     <div class="search-input-wrapper">
-      <input
-        class="search-input"
-        type="text"
-        placeholder="What are you looking for?"
-      />
+      <input class="search-input" type="text" placeholder="What are you looking for?" />
     </div>
     <div class="search-button-wrapper">
       <button class="search-button">
@@ -33,57 +29,47 @@
 <section class="trending-section">
   <p class="trending-label">Trending searches</p>
   <div class="trending-tags">
-    <span class="trending-tag">UI/UX</span>
-    <span class="trending-tag">Minimalist Design</span>
-    <span class="trending-tag">Dark Mode</span>
-    <span class="trending-tag">3D Illustration</span>
-    <span class="trending-tag">Microinteractions</span>
+    <span class="trending-tag" type="button">UI/UX</span>
+    <span class="trending-tag" type="button">Minimalist Design</span>
+    <span class="trending-tag" type="button">Dark Mode</span>
+    <span class="trending-tag" type="button">3D Illustration</span>
+    <span class="trending-tag" type="button">Microinteractions</span>
   </div>
 </section>
 
 <section class="gallery-section">
   <div class="gallery-grid">
-    <% shotData.forEach(function(shot, index) { %>
+    <% shotData.forEach(function(shot) { %>
       <div class="gallery-item">
         <div class="gallery-image-wrapper">
           <a href="/shot/<%= shot.id %>">
             <img class="gallery-image" src="<%= shot.image %>" alt="<%= shot.title %>" />
           </a>
         </div>
-
         <div class="gallery-content">
           <div class="gallery-header">
             <div class="shot-info">
               <h3 class="shot-title"><%= shot.title %></h3>
-
               <% if(shot.author) { %>
                 <div class="shot-author">
-                  <span class="author-avatar">
-                    <%= shot.author.username.charAt(0).toUpperCase() %>
+                  <span class="author-avatar"><%= shot.author.username.charAt(0).toUpperCase() %></span>
+                  <span class="author-name">
+                    <a class="author-name" href="/user/<%= shot.author.id %>"><%= shot.author.username %></a>
                   </span>
-                  <span class="author-name"><a class="author-name" href="/user/<%= shot.author.id %>"><%= shot.author.username %></a></span>
                 </div>
               <% } %>
             </div>
-
             <div class="shot-actions">
               <div class="stat-badge views-badge">
                 <i class="fa-solid fa-eye stat-icon-views"></i>
                 <span class="stat-number"><%= shot.views || 0 %></span>
               </div>
-
               <% if (currUser) { %>
-                <% 
-                  const isLiked = userLikes.includes(shot._id.toString());
-                %>
-
+                <% const isLiked = userLikes.includes(shot._id.toString()); %>
                 <div class="stat-badge thumbs-badge <%= isLiked ? 'liked' : '' %>" onclick="toggleLikeHome('<%= shot._id %>', this)">
-                  <i class="<%= isLiked ? 'fa-solid' : 'fa-regular' %> fa-thumbs-up stat-icon-thumbs"
-                    <% if (isLiked) { %> style="color: #123ac0;" <% } %>>
-                  </i>
+                  <i class="<%= isLiked ? 'fa-solid' : 'fa-regular' %> fa-thumbs-up stat-icon-thumbs" <% if (isLiked) { %> style="color: #123ac0;" <% } %>></i>
                   <span class="stat-number"><%= shot.likes || 0 %></span>
                 </div>
-
               <% } else { %>
                 <div class="stat-badge thumbs-badge" onclick="showLoginMessage()">
                   <i class="fa-regular fa-thumbs-up stat-icon-thumbs"></i>
@@ -97,3 +83,97 @@
     <% }) %>
   </div>
 </section>
+
+<script>
+  const jsShotData = <%- JSON.stringify(shotData) %>;
+  const currUser = <%- JSON.stringify(currUser || null) %>;
+  const userLikes = <%- JSON.stringify(userLikes || []) %>;
+  const gallery = document.querySelector('.gallery-grid');
+  const tags = document.querySelectorAll('.trending-tag');
+  const searchInput = document.querySelector('.search-input');
+  const searchButton = document.querySelector('.search-button');
+
+
+  const filterData = (filterParameter) => {
+    let filtered = jsShotData.filter(shot => {
+      let shotTitle = shot.title.trim().toLowerCase();
+      filterParameter = filterParameter.trim().toLowerCase();
+      return shotTitle.includes(filterParameter);
+    });
+    if(filtered.length == 0){
+      gallery.innerHTML = "No such posts exist."
+    }else{
+    renderNewContent(filtered);
+    }
+  }
+
+  searchInput.addEventListener("keydown", (e) => {
+    if(e.key === 'Enter'){
+      filterData(searchInput.value);
+    }
+  })
+
+  searchButton.addEventListener('click', () => {
+    filterData(searchInput.value);
+  })
+
+  tags.forEach(tag => {
+    tag.addEventListener('click', e => {
+      tags.forEach(tag => {
+        tag.classList.remove('grey');
+      })
+      tag.classList.toggle('grey');
+      let keyword = e.target.innerText;
+      let filtered = jsShotData.filter(shot => 
+        Array.isArray(shot.tags) && shot.tags.includes(keyword)
+      );
+      if(filtered.length == 0){
+        gallery.innerHTML = "No such posts exist."
+      }else{
+      renderNewContent(filtered);
+      }
+    });
+  });
+
+  const renderNewContent = (filtered) => {
+    gallery.innerHTML = filtered.map(shot => {
+        const isLiked = currUser && userLikes.includes(shot._id?.toString());
+        return `
+          <div class="gallery-item">
+            <div class="gallery-image-wrapper">
+              <a href="/shot/${shot.id}">
+                <img class="gallery-image" src="${shot.image}" alt="${shot.title}" />
+              </a>
+            </div>
+            <div class="gallery-content">
+              <div class="gallery-header">
+                <div class="shot-info">
+                  <h3 class="shot-title">${shot.title}</h3>
+                  ${shot.author ? `
+                    <div class="shot-author">
+                      <span class="author-avatar">${shot.author.username.charAt(0).toUpperCase()}</span>
+                      <span class="author-name"><a class="author-name" href="/user/${shot.author.id}">${shot.author.username}</a></span>
+                    </div>` : ''}
+                </div>
+                <div class="shot-actions">
+                  <div class="stat-badge views-badge">
+                    <i class="fa-solid fa-eye stat-icon-views"></i>
+                    <span class="stat-number">${shot.views || 0}</span>
+                  </div>
+                  ${currUser ? `
+                    <div class="stat-badge thumbs-badge ${isLiked ? 'liked' : ''}" onclick="toggleLikeHome('${shot._id}', this)">
+                      <i class="${isLiked ? 'fa-solid' : 'fa-regular'} fa-thumbs-up stat-icon-thumbs" ${isLiked ? 'style="color: #123ac0;"' : ''}></i>
+                      <span class="stat-number">${shot.likes || 0}</span>
+                    </div>` : `
+                    <div class="stat-badge thumbs-badge" onclick="showLoginMessage()">
+                      <i class="fa-regular fa-thumbs-up stat-icon-thumbs"></i>
+                      <span class="stat-number">${shot.likes || 0}</span>
+                    </div>`}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+  }
+</script>

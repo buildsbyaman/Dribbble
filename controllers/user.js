@@ -1,5 +1,11 @@
 const User = require("../models/user.js");
 const Shot = require("../models/shot.js");
+const crypto = require("crypto");
+const { sendOTPEmail } = require("../utilities/verficationEmail.js");
+
+const generateOTP = () => {
+  return crypto.randomInt(100000, 999999).toString();
+};
 
 module.exports.signupShow = (req, res) => {
   res.render("users/signup.ejs", {
@@ -21,6 +27,221 @@ module.exports.loginShow = (req, res) => {
       "/css/auth.css",
     ],
   });
+};
+
+module.exports.forgotShow = (req, res) => {
+  res.render("users/forgot.ejs", {
+    cssFiles: [
+      "/css/common.css",
+      "/css/header.css",
+      "/css/footer.css",
+      "/css/auth.css",
+    ],
+  });
+};
+
+module.exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email || !email.trim()) {
+      req.flash("failure", "Email address is required.");
+      return res.redirect("/user/forgot");
+    }
+
+    const trimmedEmail = email.trim().toLowerCase();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(trimmedEmail)) {
+      req.flash("failure", "Please enter a valid email address.");
+      return res.redirect("/user/forgot");
+    }
+
+    const user = await User.findOne({ email: trimmedEmail });
+
+    if (!user) {
+      req.flash(
+        "success",
+        "If an account with that email exists, we've sent an OTP to your email."
+      );
+      req.session.resetEmail = trimmedEmail;
+      return res.redirect("/user/verify-otp");
+    }
+
+    const otp = generateOTP();
+    user.verificationToken = otp;
+    user.verificationTokenExpires = Date.now() + 10 * 60 * 1000;
+    const verficationAttemptsMade = user.verificationAttempts;
+    user.verificationAttempts = verficationAttemptsMade + 1;
+    await user.save();
+
+    await sendOTPEmail(trimmedEmail, otp);
+
+    req.flash("success", "OTP has been sent to your email address.");
+    req.session.resetEmail = trimmedEmail;
+    res.redirect("/user/verify-otp");
+  } catch (error) {
+    console.log(error);
+    req.flash("failure", "Unable to process reset request. Please try again.");
+    res.redirect("/user/forgot");
+  }
+};
+
+module.exports.verifyOTPShow = (req, res) => {
+  const email = req.session.resetEmail || "";
+  res.render("users/verify-otp.ejs", {
+    cssFiles: [
+      "/css/common.css",
+      "/css/header.css",
+      "/css/footer.css",
+      "/css/auth.css",
+    ],
+    email: email,
+  });
+};
+
+module.exports.resetPasswordShow = (req, res) => {
+  const email = req.session.resetEmail;
+
+  if (!email) {
+    req.flash("failure", "Invalid reset session. Please start over.");
+    return res.redirect("/user/forgot");
+  }
+
+  res.render("users/reset-password.ejs", {
+    cssFiles: [
+      "/css/common.css",
+      "/css/header.css",
+      "/css/footer.css",
+      "/css/auth.css",
+    ],
+    email: email,
+  });
+};
+
+module.exports.verifyOTP = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    if (!email || !otp) {
+      req.flash("failure", "Email and OTP are required.");
+      return res.redirect("/user/verify-otp");
+    }
+
+    const trimmedEmail = email.trim().toLowerCase();
+    const trimmedOTP = otp.trim();
+
+    const user = await User.findOne({
+      email: trimmedEmail,
+      verificationToken: trimmedOTP,
+      verificationTokenExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      req.flash("failure", "Invalid or expired OTP. Please try again.");
+      req.session.resetEmail = trimmedEmail;
+      return res.redirect("/user/verify-otp");
+    }
+
+    if (user.verificationAttempts > 10) {
+      req.flash(
+        "failure",
+        "Your account has been blocked because of multiple failed attempts! Please contact our customer support team!"
+      );
+      return res.redirect("/shot");
+    }
+
+    if (!user.isVerified) {
+      user.isVerified = true;
+      user.verificationToken = undefined;
+      user.verificationTokenExpires = undefined;
+      user.verificationAttempts = 0;
+      await user.save();
+
+      req.login(user, (error) => {
+        if (error) {
+          req.flash(
+            "failure",
+            "Unable to authenticate you. Please login manually!"
+          );
+          return res.redirect("/user/login");
+        }
+        req.flash("success", "Welcome to Dribbble!");
+        res.redirect("/shot");
+      });
+      return;
+    }
+
+    user.verificationTokenExpires = Date.now() + 30 * 60 * 1000;
+    await user.save();
+
+    req.flash(
+      "success",
+      "OTP verified successfully! Please set your new password."
+    );
+    req.session.resetEmail = trimmedEmail;
+    res.redirect("/user/reset-password");
+  } catch (error) {
+    console.log(error);
+    req.flash("failure", "Unable to verify OTP. Please try again.");
+    req.session.resetEmail = undefined;
+    res.redirect("/user/forgot");
+  }
+};
+
+module.exports.resetPassword = async (req, res) => {
+  try {
+    const { email, password, confirmPassword } = req.body;
+
+    if (!email || !password || !confirmPassword) {
+      req.flash("failure", "All fields are required.");
+      return res.redirect("/user/forgot");
+    }
+
+    if (password !== confirmPassword) {
+      req.flash("failure", "Passwords do not match.");
+      return res.redirect("/user/reset-password");
+    }
+
+    if (password.length < 6) {
+      req.flash("failure", "Password must be at least 6 characters long.");
+      return res.redirect("/user/reset-password");
+    }
+
+    const user = await User.findOne({
+      email: email.trim().toLowerCase(),
+      verificationTokenExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      req.flash(
+        "failure",
+        "Invalid or expired reset token. Please start over."
+      );
+      return res.redirect("/user/forgot");
+    }
+
+    await user.setPassword(password);
+
+    user.verificationToken = null;
+    user.verificationTokenExpires = null;
+    user.verificationAttempts = 0;
+
+    await user.save();
+
+    req.session.resetEmail = undefined;
+
+    req.flash(
+      "success",
+      "Password reset successfully! Please log in with your new password."
+    );
+    res.redirect("/user/login");
+  } catch (error) {
+    console.log(error);
+    req.flash("failure", "Unable to reset password. Please try again.");
+    req.session.resetEmail = undefined;
+    res.redirect("/user/forgot");
+  }
 };
 
 module.exports.signup = async (req, res) => {
@@ -53,20 +274,22 @@ module.exports.signup = async (req, res) => {
       username: trimmedUsername,
       email: trimmedEmail,
     });
+
     const registeredUser = await User.register(newUser, password);
 
-    req.login(registeredUser, (error) => {
-      if (error) {
-        req.flash(
-          "failure",
-          "Unable to authenticate you. Please login manually!"
-        );
-        return res.redirect("/user/signup");
-      } else {
-        req.flash("success", "Welcome to Dribbble!");
-        res.redirect("/shot");
-      }
-    });
+    const otp = generateOTP();
+    registeredUser.verificationToken = otp;
+    registeredUser.verificationTokenExpires = Date.now() + 10 * 60 * 1000;
+    const verficationAttemptsMade = registeredUser.verificationAttempts;
+    registeredUser.verificationAttempts = verficationAttemptsMade + 1;
+    await registeredUser.save();
+
+    await sendOTPEmail(trimmedEmail, otp);
+
+    req.flash("success", "OTP has been sent to your email address.");
+    req.session.resetEmail = trimmedEmail;
+
+    res.redirect("/user/verify-otp");
   } catch (error) {
     req.flash("failure", error.message);
     res.redirect("/user/signup");

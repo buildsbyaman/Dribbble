@@ -15,11 +15,23 @@ const validateUserSchema = (req, res, next) => {
   }
 };
 
+router.get("/forgot", isNotLoggedIn, userController.forgotShow);
+
+router.get("/verify-otp", isNotLoggedIn, userController.verifyOTPShow);
+
+router.get('/reset-password', isNotLoggedIn, userController.resetPasswordShow);
+
 router.get("/signup", isNotLoggedIn, userController.signupShow);
 
 router.get("/login", isNotLoggedIn, userController.loginShow);
 
 router.post("/signup", validateUserSchema, userController.signup);
+
+router.post("/forgot", userController.forgotPassword);
+
+router.post("/verify-otp", userController.verifyOTP);
+
+router.post("/reset-password", userController.resetPassword);
 
 router.post(
   "/login",
