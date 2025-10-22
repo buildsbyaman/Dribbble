@@ -1,7 +1,7 @@
 const User = require("../models/user.js");
 const Shot = require("../models/shot.js");
 const crypto = require("crypto");
-const { sendOTPEmail } = require("../utilities/verificationEmail.js");
+const { sendOTPEmail } = require("../utilities/verficationEmail.js");
 
 const generateOTP = () => {
   return crypto.randomInt(100000, 999999).toString();
