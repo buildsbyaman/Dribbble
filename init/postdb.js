@@ -4,7 +4,7 @@ const Review = require("../models/review.js");
 const dotenv = require("dotenv");
 dotenv.config({ quiet: true });
 
-const authorId = new mongoose.Types.ObjectId("68f7748a9e979167a24fa7ee");
+const authorId = new mongoose.Types.ObjectId("68f9a30c1486fbcdb806b073");
 
 async function connectDB() {
   try {

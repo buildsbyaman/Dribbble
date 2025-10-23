@@ -17,11 +17,13 @@ const flash = require("connect-flash");
 const methodOverride = require("method-override");
 const CustomError = require("./utilities/CustomError.js");
 const { startCleanupJob } = require("./utilities/cleanupUnverifiedUsers.js");
+const MongoStore = require("connect-mongo");
 
 const sessionOptions = {
   secret:
     process.env.SESSION_SECRET || "fallback-secret-key-change-in-production",
   resave: false,
+  store: MongoStore.create({ mongoUrl: process.env.MONGOATLASURL }),
   saveUninitialized: false,
   cookie: {
     secure: process.env.NODE_ENV === "production",
