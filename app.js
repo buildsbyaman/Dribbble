@@ -7,6 +7,9 @@ const reviewRouter = require("./routes/review.js");
 const ejsEngine = require("ejs-mate");
 const path = require("path");
 const app = express();
+
+app.set("trust proxy", 1);
+
 const mongoose = require("mongoose");
 const User = require("./models/user.js");
 const cookieParser = require("cookie-parser");
@@ -26,9 +29,11 @@ const sessionOptions = {
   store: MongoStore.create({ mongoUrl: process.env.MONGOATLASURL }),
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === "production",
+    secure:
+      process.env.NODE_ENV === "production" && process.env.HTTPS === "true",
     maxAge: 1000 * 60 * 60 * 24 * 7,
     httpOnly: true,
+    sameSite: process.env.NODE_ENV === "production" ? "lax" : "strict",
   },
 };
 
@@ -42,6 +47,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cookieParser());
+
 app.use(expressSession(sessionOptions));
 app.use(flash());
 app.use(passport.initialize());
