@@ -79,7 +79,7 @@ module.exports.forgotPassword = async (req, res) => {
 
     req.flash("success", "OTP has been sent to your email address.");
     req.session.resetEmail = trimmedEmail;
-    
+
     req.session.save((err) => {
       if (err) {
         console.error("Session save error:", err);
@@ -263,6 +263,21 @@ module.exports.signup = async (req, res) => {
       return res.redirect("/user/signup");
     }
 
+    const oldUserExixts = await User.findOne({
+      $or: [{ email: trimmedEmail }, { username: trimmedUsername }],
+    });
+
+    if (oldUserExixts) {
+      if (oldUserExixts.isVerified == true) {
+        req.flash("failure", "User already exists!");
+        res.redirect("/user/signup");
+      } else {
+        await User.deleteOne({
+          $or: [{ email: trimmedEmail }, { username: trimmedUsername }],
+        });
+      }
+    }
+
     const newUser = new User({
       username: trimmedUsername,
       email: trimmedEmail,
@@ -281,7 +296,7 @@ module.exports.signup = async (req, res) => {
 
     req.flash("success", "OTP has been sent to your email address.");
     req.session.signupEmail = trimmedEmail;
-    
+
     req.session.save((err) => {
       if (err) {
         console.error("Session save error:", err);
