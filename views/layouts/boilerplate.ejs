@@ -27,8 +27,9 @@
   </head>
   <body>
     <%- include('../includes/header.ejs') %> <%-
-    include('../includes/flash.ejs') %> <%- body %> <%-
-    include('../includes/footer.ejs') %>
+    include('../includes/flash.ejs') %> 
+    <div class="ultimate-home"><%- body %></div>
+    <%- include('../includes/footer.ejs') %>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
