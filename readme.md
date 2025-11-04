@@ -1,4 +1,4 @@
-# Dribbble Clone
+# Dribbble
 
 A modern, full-stack web application inspired by Dribbble, built with Express.js, MongoDB, and EJS. Share your creative work, discover inspiring designs, and connect with a community of designers and artists.
 
