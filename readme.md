@@ -6,17 +6,17 @@ A modern, full-stack web application inspired by Dribbble, built with Express.js
 
 ## ✨ Features
 
-- 🔐 **User Authentication** - Secure signup/login with email verification
-- 📸 **Shot Management** - Create, edit, delete, and view creative shots
-- 💬 **Reviews & Ratings** - Rate and comment on shots (1-5 stars)
-- ❤️ **Like System** - Like/unlike shots with real-time updates
-- 📊 **Statistics** - View and like counters for shots
-- 🖼️ **Image Upload** - Cloudinary integration for optimized storage
-- 👤 **User Profiles** - Personal profiles showing user shots and liked content
-- 🔔 **Email Notifications** - OTP verification and password reset
-- 🏷️ **Tagging System** - Organize shots with custom tags
-- 📱 **Responsive Design** - Mobile-first, fully responsive interface
-- �️ **Security** - Input validation, session management, and CSRF protection
+- **User Authentication** - Secure signup/login with email verification
+- **Shot Management** - Create, edit, delete, and view creative shots
+- **Reviews & Ratings** - Rate and comment on shots (1-5 stars)
+- **Like System** - Like/unlike shots with real-time updates
+- **Statistics** - View and like counters for shots
+- **Image Upload** - Cloudinary integration for optimized storage
+- **User Profiles** - Personal profiles showing user shots and liked content
+- **Email Notifications** - OTP verification and password reset
+- **Tagging System** - Organize shots with custom tags
+- **Responsive Design** - Mobile-first, fully responsive interface
+- **Security** - Input validation, session management, and CSRF protection
 
 ## 🚀 Quick Start
 
@@ -65,6 +65,6 @@ Dribbble/
 
 ## 🛠️ Technology Stack
 
-**Backend:** Express.js, MongoDB, Mongoose, Passport.js, Multer, Cloudinary, Nodemailer
-**Frontend:** EJS, CSS3 with CSS Variables, Responsive Design
-**Security:** Joi Validation, Express-Session, CSRF Protection, Rate Limiting
+- **Backend:** Express.js, MongoDB, Mongoose, Passport.js, Multer, Cloudinary, Nodemailer
+- **Frontend:** EJS, CSS3 with CSS Variables, Responsive Design
+- **Security:** Joi Validation, Express-Session, CSRF Protection, Rate Limiting
