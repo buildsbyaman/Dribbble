@@ -1,8 +1,8 @@
 # Dribbble
 
-A modern, full-stack web application inspired by Dribbble, built with Express.js, MongoDB, and EJS. Share your creative work, discover inspiring designs, and connect with a community of designers and artists.
+A modern, full-stack web application inspired by Dribbble, built with Express.js, MongoDB, and EJS to share designs, creative work, discover inspiring designs, and to connect with a community of designers and artists.
 
-🌐 **Check out the live site here:** [buildsbyaman-dribbble.vercel.app](https://buildsbyaman-dribbble.vercel.app)
+## 🌐 [Live Demo](https://buildsbyaman-dribbble.vercel.app)
 
 ## ✨ Features
 
@@ -18,20 +18,6 @@ A modern, full-stack web application inspired by Dribbble, built with Express.js
 - **Responsive Design** - Mobile-first, fully responsive interface
 - **Security** - Input validation, session management, and CSRF protection
 
-## 🚀 Quick Start
-
-### Prerequisites
-
-- **Node.js** (v18 or higher)
-- **MongoDB** (local or MongoDB Atlas)
-- **Cloudinary Account** (for image uploads)
-
-### Installation
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Set up environment variables (see `.env.example`)
-4. Start development server: `npm app.js`
 
 ## 📁 Project Structure
 
@@ -67,4 +53,4 @@ Dribbble/
 
 - **Backend:** Express.js, MongoDB, Mongoose, Passport.js, Multer, Cloudinary, Nodemailer
 - **Frontend:** EJS, CSS3 with CSS Variables, Responsive Design
-- **Security:** Joi Validation, Express-Session, CSRF Protection, Rate Limiting
+- **Security:** Joi Validation, Express-Session

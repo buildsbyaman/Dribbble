@@ -115,6 +115,26 @@ a:hover {
   color: var(--color-white);
 }
 
+.btn-google {
+  background-color: var(--color-white);
+  color: #1f1f1f;
+  border: 2px solid var(--color-gray-border);
+  height: 3rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-google:hover {
+  background-color: #f8f9fa;
+  border-color: #dadce0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.btn-google:active {
+  transform: translateY(0);
+}
+
 .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-white);

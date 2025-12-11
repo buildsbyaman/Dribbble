@@ -1,7 +1,7 @@
 {
-  "name": "dribbble-clone",
+  "name": "dribbble",
   "version": "1.0.0",
-  "description": "A Dribbble clone built with Express and EJS",
+  "description": "A Web App to share designs.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -14,7 +14,7 @@
     "ejs",
     "web-development"
   ],
-  "author": "Your Name",
+  "author": "Aman Kumar",
   "license": "MIT",
   "dependencies": {
     "cloudinary": "^2.8.0",

@@ -19,7 +19,6 @@ const localStrategy = require("passport-local");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
 const CustomError = require("./utilities/CustomError.js");
-const { startCleanupJob } = require("./utilities/cleanupUnverifiedUsers.js");
 const MongoStore = require("connect-mongo");
 
 const sessionOptions = {
@@ -53,14 +52,11 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGOATLASURL);
     console.log("Successfully connected to DB!");
-    startCleanupJob();
   } catch (error) {
     console.error("Error while connecting to Database!");
     process.exit(1);
