@@ -53,7 +53,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
-passport.serializeUser(User.deserializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 async function connectDB() {
   try {
